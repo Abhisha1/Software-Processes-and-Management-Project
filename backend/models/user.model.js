@@ -6,9 +6,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     username: {
         type: String,
+        required: true,
     },
     password: {
-        type: String
+        type: String,
+        required: true,
     }
 },
 {
@@ -16,17 +18,37 @@ const userSchema = new Schema({
 });
 
 
-// Password hash generation function
-userSchema.methods.generateHash = function(password) {
-    const saltRounds = 10;
-    bcrypt.hash(password, 10)
-}
+userSchema.pre('save', function(next) {
+    var user = this;
+    
+    // Only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) {
+        return next();
+    }
+    // Generate a salt
+    bcrypt.genSalt(10, function(err, salt) {
+        if (err) {
+            return next(err);
+        }
+        // Hash the password along with our new salt
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) {
+                return next(err);
+            }
+            // Override the plaintext password with the hashed one
+            user.password = hash;
+            next();
+        });
+    });
+});
 
 
-// Password validation function
-userSchema.methods.validPassword = function(password) {
-    bcrypt.compare(password, this.password, function(err, res) {
-        return res;
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, isMatch);
     });
 }
 

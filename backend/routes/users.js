@@ -11,33 +11,35 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    const newUser = new User({
+        username: username,
+        password: password
+    });
+    newUser.save()
+        .then(() => res.json('User added!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
-    bcrypt.hash(password, 10, function(err, hash) {
+router.route('/login').post((req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    User.findOne({ username: username }, function(err, user) {
         if (err) {
             throw err;
         }
-        newUser = new User({
-            username: username,
-            password: hash,
+        // Validate the password
+        user.comparePassword(password, function(err, isMatch) {
+            if (err) {
+                throw err;
+            }
+            if (isMatch) {
+                res.json('Login successful!')
+            } else {
+                res.json('Invalid username or password');
+            }
         });
-        newUser.save()
-            .then(() => res.json('User added! username is ' + req.body.username + ', hashed password is ' + req.body.password))
-            .catch(err => res.status(400).json('Error: ' + err));
     });
-});
-
-
-router.route('/login').post((req, res) => {
-    User.findOne({ username: req.body.username });
-    // Validate input password
-    if (!user.validPassword()) {
-        console.log('Invalid password!');
-        res.json('Invalid password');
-    } else {
-        console.log('Successfully logged in!');
-        res.json('Successfully logged in');
-    }
-
 });
 
 module.exports = router;
