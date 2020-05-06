@@ -9,10 +9,10 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     const newUser = new User({
-        username: username,
+        email: email,
         password: password
     });
     newUser.save()
@@ -21,10 +21,10 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/login').post((req, res) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({ username: username }, function(err, user) {
+    User.findOne({ email: email }, function(err, user) {
         if (err) {
             throw err;
         }
@@ -36,7 +36,7 @@ router.route('/login').post((req, res) => {
             if (isMatch) {
                 res.json('Login successful!')
             } else {
-                res.json('Invalid username or password');
+                res.json('Invalid password');
             }
         });
     });
