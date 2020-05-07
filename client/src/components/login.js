@@ -37,16 +37,15 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        console.log(user);
 
         // Send HTTP POST request to backend endpoint
         axios.post('http://localhost:5000/users/login', user)
             .then(res => {
-                console.log(res.data);
+              //  console.log(res.data);
                 this.props.history.push("/home");
             })
             .catch(err => {
-                console.log(err);
+               // console.log(err);
                 this.setState({
                     showError: true
                 })
