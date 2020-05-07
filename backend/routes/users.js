@@ -23,22 +23,23 @@ router.route('/add').post((req, res) => {
 router.route('/login').post((req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-
-    User.findOne({ email: email }, function(err, user) {
-        if (err) {
-            throw err;
-        }
+    User.findOne({ email: email }).then(user =>  {
         // Validate the password
         user.comparePassword(password, function(err, isMatch) {
             if (err) {
-                throw err;
+                res.status(400).json({msg: "Signin Failed: Please check your details"});
+                return;
             }
             if (isMatch) {
-                res.json('Login successful!')
+                res.status(200).json({msg: "Login successful"});
+                return;
             } else {
-                res.json('Invalid password');
+                res.status(400).json({msg: "Signin Failed: Please check your details"});
+                return;
             }
         });
+    }).catch(err => {
+        res.status(400).json({msg: "Signin Failed: Please check your details"});
     });
 });
 

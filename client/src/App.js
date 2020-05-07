@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar.component";
 import CreateUser from "./components/create-user.component";
+import Login from "./components/login";
+import Home from "./components/home";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Navbar />
         <br/>
         <Route path="/user" exact component={CreateUser} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/home" exact component={Home} />
       </div>
     </Router>
 
