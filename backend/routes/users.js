@@ -42,5 +42,16 @@ router.route('/login').post((req, res) => {
         res.status(400).json({msg: "Signin Failed: Please check your details"});
     });
 });
-
+router.route('/update').post((req, res) => {
+    //const oldEmail = req.body.oldEmail;
+    const email = req.body.email;
+    const password = req.body.password;
+    User.findOneAndUpdate({ email: email },{password:password}).then(user =>  {
+        // Validate the password
+        res.status(200).json({msg: "Update successful"});
+        return;
+    }).catch(err => {
+        res.status(400).json({msg: "Update Failed: Please check your details"});
+    });
+});
 module.exports = router;
