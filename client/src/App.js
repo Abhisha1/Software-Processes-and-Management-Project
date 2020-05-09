@@ -17,7 +17,7 @@ function App() {
         <Route path="/user" exact component={CreateUser} />
         <Route path="/login" exact component={Login} />
         <Route path="/home" exact component={Home} />
-        <Route path="/edit" exact compenent={EditUser}/>
+        <Route path="/edit" exact component={EditUser}/>
        </div>
     </Router>
 

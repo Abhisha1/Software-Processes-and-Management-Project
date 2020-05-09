@@ -6,6 +6,7 @@ class EditUser extends Component {
         return(
             <div>
                 <h3>Edit account</h3>
+                <p> hdhdhdgyfgfsd</p>
 
             </div>
         );
