@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-export default class CreateUser extends Component {
+class CreateUser extends Component {
     constructor(props) {
         super(props);
 
@@ -11,19 +12,22 @@ export default class CreateUser extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            showError: false
         }
     }
 
     onChangeEmail(e) {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
+            showError: false
         });
     }
 
     onChangePassword(e) {
         this.setState({
-            password: e.target.value
+            password: e.target.value,
+            showError: false
         });
     }
 
@@ -37,8 +41,16 @@ export default class CreateUser extends Component {
 
         // Send HTTP POST request to backend endpoint
         axios.post('http://localhost:5000/users/add', user)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err));
+            .then(res => {
+                console.log(res.data);
+                this.props.history.push("/home");
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({
+                    showError: true
+                })
+            });
 
         this.setState({
             email: '',
@@ -75,8 +87,16 @@ export default class CreateUser extends Component {
                     <div className="form-group">
                         <input type ="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
+                    {this.state.showError ? 
+                        <div className="alert alert-danger" role="alert" >
+                        The details you entered are invalid, please try again
+                    </div>
+                    : 
+                    <div></div>}
                 </form>
             </div>
         );
     }
 }
+
+export default withRouter(CreateUser);
