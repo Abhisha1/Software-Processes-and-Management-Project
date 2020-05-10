@@ -65,6 +65,7 @@ class Login extends Component {
                             required
                             className="form-control"
                             value={this.state.email}
+                            id="email"
                             onChange={this.onChangeEmail}
                             placeholder="Email"
                         />
@@ -73,6 +74,7 @@ class Login extends Component {
                         <label>Password</label>
                         <input type="password"
                             required
+                            id="password"
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}
@@ -80,10 +82,10 @@ class Login extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type ="submit" value="Log in" className="btn btn-primary"/>
+                        <input type ="submit" value="Log in" id="submit" className="btn btn-primary"/>
                     </div>
                     {this.state.showError ? 
-                        <div className="alert alert-danger" role="alert" >
+                        <div id="error" className="alert alert-danger" role="alert" >
                         The details you entered are invalid, please try again
                     </div>
                     : 
