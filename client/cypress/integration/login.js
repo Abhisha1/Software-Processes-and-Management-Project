@@ -23,4 +23,11 @@ describe('Logging in tests', () => {
         cy.get('#error').should('have.text', 'The details you entered are invalid, please try again')
 
     })
+    it('Login with no input', () => {
+        cy.visit('http://localhost:3000/login');
+        cy.get('#email').type('abhisha@gmail.com')
+        cy.get('#password').type('Test4')
+        cy.get('#submit').click()
+        cy.url().should('eq', 'http://localhost:3000/login')
+    })
 })
