@@ -31,9 +31,11 @@ class Order extends Component {
         const typeSize = type + size;
         this.setState((state) => {
             const oldQuantity = state[type+size];
+            const oldTotal = state.total;
             return {
                 [typeSize]: oldQuantity + quantity,
-                cartEmpty: false
+                cartEmpty: false,
+                total: oldTotal + this.getSubtotal(quantity, size, type)
             }
         });
     }
@@ -48,7 +50,7 @@ class Order extends Component {
         this.updateState(type, size, quantity);
     }
 
-    
+
     getSubtotal(quantity, size, type) {
         const price = {"Fruit": 20, "Vegetable": 15, "Mixed": 18};
         const factor = {"Small": 1, "Medium": 2, "Large": 3};

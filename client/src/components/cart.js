@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 
 
@@ -72,7 +75,7 @@ class Cart extends Component {
 
     render() {
         const cartEmpty = this.props.order.cartEmpty;
-        console.log('cartEmpty: ' + cartEmpty);
+        //console.log('cartEmpty: ' + cartEmpty);
         if (cartEmpty) {
             return (
                 <div>
@@ -91,7 +94,7 @@ class Cart extends Component {
                         <tr>
                         <th>Qty</th>
                         <th>Item</th>
-                        <th>Price</th>
+                        <th>Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,8 +102,19 @@ class Cart extends Component {
                     </tbody>
                     </Table>
                 </div>
-                <div>
-                    <Button variant="secondary" onClick={this.handleResetClick}>RESET CART</Button>
+                <Button type="reset"
+                        variant="secondary" 
+                        onClick={this.handleResetClick}>
+                            RESET CART
+                </Button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-left">
+                        </div>
+                        <div class="col text-right">
+                            <h4>Total: AUD ${this.props.order.total}</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
