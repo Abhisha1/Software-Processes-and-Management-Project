@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar";
 import CreateUser from "./components/createUser";
-import ProductForm from './components/productForm';
+import Order from "./components/order";
+
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Navbar />
         <br/>
         <Route path="/user" exact component={CreateUser} />
-        <Route path="/order" exact component={ProductForm} />
+        <Route path="/order" exact component={Order} />
       </div>
     </Router>
 

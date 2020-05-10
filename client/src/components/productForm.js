@@ -15,7 +15,7 @@ class ProductForm extends Component {
         this.handleSizeChange = this.handleSizeChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             size: 'Small',
             type: 'Fruit',
@@ -48,22 +48,20 @@ class ProductForm extends Component {
         });
     }
 
-    onSubmit(event) {
+    handleSubmit(event) {
         // TODO: need to reset buttons
-        console.log('clicked submit button');
+        //console.log('clicked submit button');
         event.preventDefault();
-        const order = {
+        const item = {
             size: this.state.size,
             type: this.state.type,
             quantity: this.state.quantity
         };
 
-        console.log(order);
+        //console.log(item);
         
         // TODO: need to pass order to higher order component
-        // this.props.onSubmit(order);
-
-        this.resetState();
+        this.props.onSubmit(item);
     }
 
     render() { 
@@ -77,12 +75,15 @@ class ProductForm extends Component {
                 <Quantity onQuantityChange={this.handleQuantityChange} quantity={this.state.quantity}/>
                 <br />
                 
+                {/* FOR DEBUGGING
                 <p>Current size selected: {this.state.size}</p>
                 <p>Current type selected: {this.state.type}</p>
                 <p>Current quantity: {this.state.quantity}</p>
+                */}
                 
-                <Button type="submit" onClick={this.onSubmit}>ADD TO CART</Button>
+                <Button type="submit" onClick={this.handleSubmit}>ADD TO CART</Button>
             </div>
+            
         );
     }
 }
