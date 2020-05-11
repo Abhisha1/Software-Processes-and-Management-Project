@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import DateTimePicker from './date';
+import DateTimePicker from './dateTimePicker';
 
 
 class Booking extends Component {
