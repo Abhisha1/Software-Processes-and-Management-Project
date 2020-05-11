@@ -6,9 +6,6 @@ import Type from './type';
 import Quantity from './quantity';
 
 
-// Note: this whole form and all components took ~2.5 hours
-
-
 class ProductForm extends Component {
     constructor(props) {
         super(props);
@@ -32,10 +29,12 @@ class ProductForm extends Component {
     }
 
     handleQuantityChange(delta) {
-        // Ensure quantity does not reach zero
+        // Ensure quantity does not reach extreme values
         var newQuantity = this.state.quantity + delta;
         if (newQuantity < 1) {
             newQuantity = 1;
+        } else if (newQuantity > 10) {
+            newQuantity = 10;
         }
         this.setState({quantity: newQuantity});
     }
@@ -49,18 +48,12 @@ class ProductForm extends Component {
     }
 
     handleSubmit(event) {
-        // TODO: need to reset buttons
-        //console.log('clicked submit button');
         event.preventDefault();
         const item = {
             size: this.state.size,
             type: this.state.type,
             quantity: this.state.quantity
         };
-
-        //console.log(item);
-        
-        // TODO: need to pass order to higher order component
         this.props.onSubmit(item);
     }
 
@@ -72,18 +65,14 @@ class ProductForm extends Component {
                 <SizeInfo size={this.state.size} />
                 <Type onTypeChange={this.handleTypeChange}/>
                 <br />
-                <Quantity onQuantityChange={this.handleQuantityChange} quantity={this.state.quantity}/>
+                <Quantity onQuantityChange={this.handleQuantityChange} 
+                          quantity={this.state.quantity}/>
                 <br />
-                
-                {/* FOR DEBUGGING
-                <p>Current size selected: {this.state.size}</p>
-                <p>Current type selected: {this.state.type}</p>
-                <p>Current quantity: {this.state.quantity}</p>
-                */}
-                
-                <Button type="submit" onClick={this.handleSubmit}>ADD TO CART</Button>
+                <Button type="submit" 
+                        onClick={this.handleSubmit}>
+                            ADD TO CART
+                </Button>
             </div>
-            
         );
     }
 }

@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 
 import ProductForm from './productForm';
 import Cart from './cart';
+import Booking from './booking';
 
 class Order extends Component {
     constructor(props) {
@@ -12,6 +13,8 @@ class Order extends Component {
         this.handleAddToCart = this.handleAddToCart.bind(this);
         this.handleResetCart = this.handleResetCart.bind(this);
         this.updateState = this.updateState.bind(this);
+
+        // TODO: Experiment with replacing state with array of objects
         this.state = {
             FruitSmall: 0,
             FruitMedium: 0,
@@ -85,6 +88,8 @@ class Order extends Component {
                         <Cart getSubtotal={this.getSubtotal} 
                               order={this.state} 
                               onResetClick={this.handleResetCart} />
+                        <br />
+                        <Booking cartEmpty={this.state.cartEmpty} />
                     </Col>
                 </Row>
             </Container>
