@@ -6,10 +6,6 @@
 
   # Default build command.
   command = "npm start"
-[[redirects]]
-    from = "/*"
-    to = "/index.html"
-    status = 200
 
 [[headers]]
     for = "/*"
