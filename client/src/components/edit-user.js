@@ -48,7 +48,7 @@ class EditUser extends Component {
         };
 
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/users/update', user)
+        axios.post('https://jjfresh.herokuapp.com/users/update', user)
             .then(res => {
                 //  console.log(res.data);
                 this.props.history.push("/home");

@@ -39,7 +39,7 @@ class Login extends Component {
         };
 
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/users/login', user)
+        axios.post('https://jjfresh.herokuapp.com/users/login', user)
             .then(res => {
               //  console.log(res.data);
                 this.props.history.push("/home");
