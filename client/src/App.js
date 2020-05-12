@@ -5,7 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/navbar";
 import CreateUser from "./components/createUser";
 import Order from "./components/order";
-
+import Login from "./components/login";
+import Home from "./components/home";
+import EditUser from "./components/edit-user";
 
 function App() {
   return (
@@ -15,7 +17,10 @@ function App() {
         <br/>
         <Route path="/user" exact component={CreateUser} />
         <Route path="/order" exact component={Order} />
-      </div>
+        <Route path="/login" exact component={Login} />
+        <Route path="/home" exact component={Home} />
+        <Route path="/edit" exact component={EditUser}/>
+       </div>
     </Router>
 
   );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
-class CreateUser extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -32,44 +32,40 @@ class CreateUser extends Component {
     }
 
     onSubmit(e) {
-        e.preventDefault(); // Prevent default HTML submit form behaviour
+        e.preventDefault();
         const user = {
             email: this.state.email,
             password: this.state.password
         };
-        console.log(user);
 
         // Send HTTP POST request to backend endpoint
-        axios.post('https://jjfresh.herokuapp.com/users/add', user)
+        axios.post('https://jjfresh.herokuapp.com/users/login', user)
             .then(res => {
-                console.log(res.data);
+              //  console.log(res.data);
                 this.props.history.push("/home");
             })
             .catch(err => {
-                console.log(err);
+               // console.log(err);
                 this.setState({
                     showError: true
                 })
             });
 
-        this.setState({
-            email: '',
-            password: ''
-        });
     }
 
 
     render() {
         return (
             <div>
-                <h3>Create account</h3>
+                <h3>Login</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
-                        <input type="email"
+                        <input type="text"
                             required
                             className="form-control"
                             value={this.state.email}
+                            id="email"
                             onChange={this.onChangeEmail}
                             placeholder="Email"
                         />
@@ -78,6 +74,7 @@ class CreateUser extends Component {
                         <label>Password</label>
                         <input type="password"
                             required
+                            id="password"
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}
@@ -85,10 +82,10 @@ class CreateUser extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type ="submit" value="Sign up" className="btn btn-primary"/>
+                        <input type ="submit" value="Log in" id="submit" className="btn btn-primary"/>
                     </div>
                     {this.state.showError ? 
-                        <div className="alert alert-danger" role="alert" >
+                        <div id="error" className="alert alert-danger" role="alert" >
                         The details you entered are invalid, please try again
                     </div>
                     : 
@@ -99,4 +96,4 @@ class CreateUser extends Component {
     }
 }
 
-export default withRouter(CreateUser);
+export default withRouter(Login);
