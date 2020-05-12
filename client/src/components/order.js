@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import ProductForm from './productForm';
 import Cart from './cart';
 import Booking from './booking';
+import setMinutes from "date-fns/setMinutes";
+import setHours from "date-fns/setHours";
 
 
 class Order extends Component {
@@ -13,10 +15,12 @@ class Order extends Component {
         this.handleAddToCart = this.handleAddToCart.bind(this);
         this.handleResetCart = this.handleResetCart.bind(this);
         this.updateState = this.updateState.bind(this);
+        this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
         this.state = {
             cartEmpty: true,
             total: 0,
-            date: new Date(),
+            date: setHours(setMinutes(new Date(), 0), 16),
             'Fruit': [{
                 size: 'Small', 
                 quantity: 0
@@ -80,6 +84,17 @@ class Order extends Component {
         return quantity * price[type] * factor[size];
     }
 
+    handleSubmitOrder() {
+        // TODO: Update database with order details
+        console.log('Order submitted!');
+    }
+
+    handleDateChange(date) {
+        this.setState({
+            date: date
+        });
+    }
+
     handleResetCart() {
         this.setState({
             cartEmpty: true,
@@ -123,14 +138,20 @@ class Order extends Component {
             <Container>
                 <Row>
                     <Col>
-                        <ProductForm onSubmit={this.handleAddToCart} />
+                        <ProductForm onSubmit={this.handleAddToCart} 
+                        />
                     </Col>
                     <Col>
                         <Cart getSubtotal={this.getSubtotal} 
                               order={this.state} 
-                              onResetClick={this.handleResetCart} />
+                              onResetClick={this.handleResetCart} 
+                        />
                         <br />
-                        <Booking cartEmpty={this.state.cartEmpty} />
+                        <Booking cartEmpty={this.state.cartEmpty}
+                                 date={this.state.date}
+                                 onSubmit={this.handleSubmitOrder}
+                                 onDateChange={this.handleDateChange}
+                        />
                     </Col>
                 </Row>
             </Container>
