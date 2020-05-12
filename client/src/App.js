@@ -6,6 +6,7 @@ import Navbar from "./components/navbar.component";
 import CreateUser from "./components/create-user.component";
 import Login from "./components/login";
 import Home from "./components/home";
+import EditUser from "./components/edit-user";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/user" exact component={CreateUser} />
         <Route path="/login" exact component={Login} />
         <Route path="/home" exact component={Home} />
-      </div>
+        <Route path="/edit" exact component={EditUser}/>
+       </div>
     </Router>
 
   );
