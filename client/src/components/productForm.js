@@ -21,11 +21,15 @@ class ProductForm extends Component {
     }
 
     handleSizeChange(size) {
-        this.setState({size: size});
+        this.setState({
+            size: size
+        });
     }
 
     handleTypeChange(type) {
-        this.setState({type: type});
+        this.setState({
+            type: type
+        });
     }
 
     handleQuantityChange(delta) {
@@ -36,7 +40,9 @@ class ProductForm extends Component {
         } else if (newQuantity > 10) {
             newQuantity = 10;
         }
-        this.setState({quantity: newQuantity});
+        this.setState({
+            quantity: newQuantity
+        });
     }
 
     resetState() {

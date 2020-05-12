@@ -8,7 +8,6 @@ class Cart extends Component {
         super(props);
         this.getRow = this.getRow.bind(this);
         this.fillTable = this.fillTable.bind(this);
-        this.handleResetClick = this.handleResetClick.bind(this);
     }
 
     getRow(quantity, size, type) {
@@ -29,8 +28,10 @@ class Cart extends Component {
         var rows = [];
         for (const type of types) {
             for (const size of sizes) {
-                var typeSize = type + size;
-                var quantity = this.props.order[typeSize];
+                var index = size === 'Small'  ? 0 
+                          : size === 'Medium' ? 1 
+                          : 2;
+                var quantity = this.props.order[type][index].quantity;
                 if (quantity > 0) {
                     var newRow = this.getRow(quantity, size, type);
                     rows.push(newRow)
@@ -39,11 +40,6 @@ class Cart extends Component {
         }
         return rows;
     }
-
-    handleResetClick() {
-        this.props.onResetClick();
-    }
-
 
     render() {
         const cartEmpty = this.props.order.cartEmpty;
@@ -75,7 +71,7 @@ class Cart extends Component {
                 </div>
                 <Button type="reset"
                         variant="danger" 
-                        onClick={this.handleResetClick}>
+                        onClick={this.props.onResetClick}>
                             RESET CART
                 </Button>
                 <br />
