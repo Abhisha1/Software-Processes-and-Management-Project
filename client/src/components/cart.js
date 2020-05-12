@@ -14,7 +14,7 @@ class Cart extends Component {
     getRow(quantity, size, type) {
         var subtotal = this.props.getSubtotal(quantity, size, type);
         return (
-            <tr>
+            <tr key={type+size}>
                 <td>{quantity}</td>
                 <td>{`${type} Box (${size})`}</td>
                 <td>{`$ ${subtotal}`}</td>
