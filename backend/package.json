@@ -2,13 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "engines": {
-    "node":"10.15.x"
+    "node": "10.15.x"
   },
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
