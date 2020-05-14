@@ -61,7 +61,7 @@ class Login extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
-                        <input type="text"
+                        <input type="email"
                             required
                             className="form-control"
                             value={this.state.email}

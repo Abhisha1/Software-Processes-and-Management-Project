@@ -67,6 +67,7 @@ class CreateUser extends Component {
                     <div className="form-group">
                         <label>Email address</label>
                         <input type="email"
+                            id="email"
                             required
                             className="form-control"
                             value={this.state.email}
@@ -77,6 +78,7 @@ class CreateUser extends Component {
                     <div className="form-group">
                         <label>Password</label>
                         <input type="password"
+                            id="password"
                             required
                             className="form-control"
                             value={this.state.password}
@@ -85,10 +87,10 @@ class CreateUser extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type ="submit" value="Sign up" className="btn btn-primary"/>
+                        <input type="submit" id="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
                     {this.state.showError ? 
-                        <div className="alert alert-danger" role="alert" >
+                        <div id="error" className="alert alert-danger" role="alert" >
                         The details you entered are invalid, please try again
                     </div>
                     : 
