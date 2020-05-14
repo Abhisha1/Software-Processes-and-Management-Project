@@ -4,6 +4,10 @@ describe('Sign up tests', () => {
         cy.get('#email').type('emacario1997@hotmail.com')
         cy.get('#password').type('password123')
         cy.get('#submit').click()
+        cy.visit("http://localhost:3000/user");
+        cy.get('#email').type('emacario1997@hotmail.com')
+        cy.get('#password').type('newPassword123')
+        cy.get('#submit').click()
         cy.get('#error').should('have.text', 'The details you entered are invalid, please try again')
     })
 })
