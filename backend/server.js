@@ -7,7 +7,11 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors({credentials: true, origin: 'https://jjfresh.netlify.app/'}));
+var allowedOrigins = ['http://localhost:3000', 'https://jjfresh.netlify.app/'];
+let origin = req.headers.origin;
+if (allowedOrigins.indexOf(origin) > -1){
+    app.use(cors({credentials: true, origin: origin}));
+}
 app.use(cookieParser());
 app.use(express.json());
 
