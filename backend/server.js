@@ -6,21 +6,21 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
+var whitelist = ['http://localhost:3000', 'https://jjfresh.netlify.app/']
 
-var allowedOrigins = ['http://localhost:3000', 'https://jjfresh.netlify.app/'];
-app.use(cors({
-    origin: function(origin, callback){
-      // allow requests with no origin 
-      // (like mobile apps or curl requests)
-      if(!origin) return callback(null, true);
-      if(allowedOrigins.indexOf(origin) === -1){
-        var msg = 'The CORS policy for this site does not ' +
-                  'allow access from the specified Origin.';
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
+var options = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
     }
-  }));
+  },
+  credentials: true
+}
+
+app.use(cors(options))
+// app.use(cors({credentials: true, origin: *''}));
 app.use(cookieParser());
 app.use(express.json());
 
