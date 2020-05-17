@@ -1,12 +1,27 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
+var whitelist = ['http://localhost:3000', 'https://jjfresh.netlify.app/']
 
-app.use(cors());
+var options = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+}
+
+app.use(cors(options))
+// app.use(cors({credentials: true, origin: *''}));
+app.use(cookieParser());
 app.use(express.json());
 
 // Establish connection to MongoDB Atlas cluster
