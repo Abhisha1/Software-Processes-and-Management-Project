@@ -21,7 +21,7 @@ var options = {
 }
 
 // app.use(cors(options))
-app.use(cors({credentials: true, origin: '*'}));
+app.use(cors({origin: '*'}));
 app.use(cookieParser());
 app.use(express.json());
 

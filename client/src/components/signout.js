@@ -4,7 +4,7 @@ import React from 'react';
 function SignOut(props){
 
     function clearCookie(){
-        axios('https://jjfresh.herokuapp.com/users/signout', {method: "get", withCredentials: true})
+        axios('https://jjfresh.herokuapp.com/users/signout', {method: "get"})
             .then(res => {
                window.location.pathname('/')
             })
