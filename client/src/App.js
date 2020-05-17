@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar";
+import PrivateRoute from "./components/protectedRoutes";
 import CreateUser from "./components/createUser";
 import Order from "./components/order";
 import Login from "./components/login";
@@ -16,10 +17,10 @@ function App() {
         <Navbar />
         <br/>
         <Route path="/user" exact component={CreateUser} />
-        <Route path="/order" exact component={Order} />
+        <PrivateRoute path="/order" component={Order} exact={true} />
         <Route path="/login" exact component={Login} />
-        <Route path="/home" exact component={Home} />
-        <Route path="/edit" exact component={EditUser}/>
+        <PrivateRoute path="/home" component={Home} exact={true} />
+        <PrivateRoute path="/edit" component={EditUser} exact={true} />
        </div>
     </Router>
 

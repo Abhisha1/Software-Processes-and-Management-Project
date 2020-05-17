@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cookieParser());
 app.use(express.json());
 
 // Establish connection to MongoDB Atlas cluster
