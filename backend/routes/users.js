@@ -47,6 +47,13 @@ router.route('/login').post((req, res) => {
     });
 });
 
+
+router.route('/getCookie').post((req,res) => {
+    console.log(res.cookie);
+    return res.send(res.cookie);
+});
+
+
 router.route('/signout').get((req, res) => {
     res.clearCookie('authorised');
     res.send("Cookie cleared");
