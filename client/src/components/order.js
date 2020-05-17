@@ -6,8 +6,6 @@ import Row from 'react-bootstrap/Row';
 import ProductForm from './productForm';
 import Cart from './cart';
 import Booking from './booking';
-import setMinutes from "date-fns/setMinutes";
-import setHours from "date-fns/setHours";
 
 
 class Order extends Component {
@@ -20,6 +18,7 @@ class Order extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
+        this.getOrder = this.getOrder.bind(this);
         this.state = this.getInitialState();
     }
 
@@ -54,13 +53,17 @@ class Order extends Component {
     }
 
     handleSubmitOrder() {
+        /*
         const order = {
             date: setHours(setMinutes(new Date(), 0), 16),// this.state.date,
             total: this.state.total
-        }
+        }*/
+        const order = this.getOrder();
+        console.log("Order: " + JSON.stringify(order));
+        console.log("Date: " + order.date.toDateString());
 
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/bookings/add', order)
+        axios.post('http://localhost:5000/orders/add', order)
             .then(res => {
                 console.log(res.data);
                 //this.props.history.push("/home");
@@ -124,6 +127,22 @@ class Order extends Component {
                 quantity: 0,
             }]
         }
+    }
+    
+    getOrder() {
+        // Return an order object that can be stored in the database
+        const order = {
+            email: "jjfresh-fan123@gmail.com", // TODO: Get actual user's email
+            total: this.state.total,
+            date: this.state.date,
+            time: this.state.time,
+            items: {
+                fruit: {small: 0, medium: 0, large: 0},
+                vegetable: {small: 0, medium: 0, large: 0},
+                mixed: {small: 0, medium: 0, large: 0}
+            }
+        }
+        return order;
     }
 
     render() { 

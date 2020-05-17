@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import DropdownToggle from 'react-bootstrap/DropdownToggle';
-import DropdownItem from 'react-bootstrap/DropdownItem';
-
-
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import setMinutes from "date-fns/setMinutes";
-import setHours from "date-fns/setHours";
 import addDays from "date-fns/addDays";
-import { isThisSecond } from 'date-fns';
 
 
 class Booking extends Component {
