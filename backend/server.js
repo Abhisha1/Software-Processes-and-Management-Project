@@ -16,11 +16,12 @@ var options = {
       callback(new Error('Not allowed by CORS'))
     }
   },
-  credentials: true
+  credentials: true,
+  allowedHeaders: "Content-Type, Authorization, X-Requested-With"
 }
 
 app.use(cors(options))
-// app.use(cors({credentials: true, origin: *''}));
+// app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(express.json());
 

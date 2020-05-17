@@ -6,8 +6,7 @@ function SignOut(props){
     function clearCookie(){
         axios('https://jjfresh.herokuapp.com/users/signout', {method: "get", withCredentials: true})
             .then(res => {
-               props.history.push("/");
-               window.location.reload();
+               window.location.pathname('/')
             })
             .catch(err => {
                console.log(err);

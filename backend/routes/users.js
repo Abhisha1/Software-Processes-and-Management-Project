@@ -17,7 +17,7 @@ router.route('/add').post((req, res) => {
     });
     newUser.save()
         .then(() => {
-            res.cookie('authorised', 'userAuthorised')
+            res.cookie('authorised', 'userAuthorised', { maxAge: 900000, sameSite: "none", httpOnly: false, secure: false })
             res.json('User added!');
         })
         .catch(err => res.status(400).json('Error: ' + err));
@@ -34,7 +34,7 @@ router.route('/login').post((req, res) => {
                 return;
             }
             if (isMatch) {
-                res.cookie('authorised', 'userAuthorised')
+                res.cookie('authorised', 'userAuthorised', { maxAge: 900000, sameSite: "none", httpOnly: false, secure: false })
                 res.status(200).json({msg: "Login successful"});
                 return;
             } else {
