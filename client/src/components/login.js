@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
+
+function setCookie(cname, cvalue, exdays) {
+    console.log("Set");
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +51,8 @@ class Login extends Component {
         axios('https://jjfresh.herokuapp.com/users/login', {method: "post", data: user})
             .then(res => {
                console.log(res);
-               this.props.history.push("/home");
-               window.location.reload();
+               setCookie("authorised", "userIsAuthorised", 0.02);
+               window.location.href = "/home";
             })
             .catch(err => {
                // console.log(err);

@@ -6,21 +6,9 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
-var whitelist = ['http://localhost:3000', 'https://jjfresh.netlify.app/']
 
-var options = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  allowedHeaders: "Content-Type, Authorization, X-Requested-With"
-}
 
-app.use(cors(options))
-// app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 

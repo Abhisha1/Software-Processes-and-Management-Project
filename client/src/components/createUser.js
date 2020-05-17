@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +49,8 @@ class CreateUser extends Component {
         axios.post('https://jjfresh.herokuapp.com/users/add', user)
             .then(res => {
                 console.log(res.data);
-                this.props.history.push("/home");
-                window.location.reload();
+                setCookie("authorised", "userIsAuthorised", 0.02);
+                window.location.href = "/home";
             })
             .catch(err => {
                 console.log(err);

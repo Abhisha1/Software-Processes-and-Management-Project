@@ -17,7 +17,6 @@ router.route('/add').post((req, res) => {
     });
     newUser.save()
         .then(() => {
-            res.cookie('authorised', 'userAuthorised', { maxAge: 900000, sameSite: "none", httpOnly: false, secure: false })
             res.json('User added!');
         })
         .catch(err => res.status(400).json('Error: ' + err));
@@ -34,7 +33,6 @@ router.route('/login').post((req, res) => {
                 return;
             }
             if (isMatch) {
-                res.cookie('authorised', 'userAuthorised', { maxAge: 900000, sameSite: "none", httpOnly: false, secure: false })
                 res.status(200).json({msg: "Login successful"});
                 return;
             } else {
@@ -47,17 +45,6 @@ router.route('/login').post((req, res) => {
     });
 });
 
-
-router.route('/getCookie').post((req,res) => {
-    console.log(res.cookie);
-    return res.send(res.cookie);
-});
-
-
-router.route('/signout').get((req, res) => {
-    res.clearCookie('authorised');
-    res.send("Cookie cleared");
-});
 
 router.route('/update').post((req, res) => {
     //const oldEmail = req.body.oldEmail;
