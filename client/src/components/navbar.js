@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import SignOut from './signout';
 
 const AuthNav = <ul className="navbar-nav mr-auto">
     <li className="navbar-item">
@@ -9,6 +9,7 @@ const AuthNav = <ul className="navbar-nav mr-auto">
     <li className="navbar-item">
         <Link to="/order" className="nav-link">Order</Link>
     </li>
+    <SignOut></SignOut>
 </ul>
 
 const UnAuthNavBar = <ul className="navbar-nav mr-auto">
@@ -20,41 +21,6 @@ const UnAuthNavBar = <ul className="navbar-nav mr-auto">
     </li>
 
 </ul>
-
-
-// export default class Navbar extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {};
-//     }
-//     componentDidMount = () => {
-//         axios.get('http://localhost:5000/users/authenticated-status')
-//         .then(res => {
-//             this.setState({
-//                 isLoading : false,
-//                 isLoggedIn : true
-//             })
-
-//         })
-//         .catch(err => {
-//             this.setState({
-//                 isLoading : false,
-//                 isLoggedIn : false
-//             })
-//         });
-//     }
-//     render() {
-//         return (
-//             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-//                 <Link to="/" className="navbar-brand">JJFresh</Link>
-//                 <div className="collapse navbar-collapse">
-//                     {this.state.isLoading ? null : 
-//                     this.state.isLoggedIn ? AuthNav : UnAuthNavBar}
-//                 </div>
-//             </nav>
-//         );
-//     }
-// }
 
 
 function Navbar() {

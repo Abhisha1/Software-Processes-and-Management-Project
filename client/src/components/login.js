@@ -44,6 +44,7 @@ class Login extends Component {
             .then(res => {
                console.log(res);
                this.props.history.push("/home");
+               window.location.reload();
             })
             .catch(err => {
                // console.log(err);
