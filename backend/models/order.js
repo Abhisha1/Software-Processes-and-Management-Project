@@ -3,25 +3,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-    email: String,
-    date: Date,
-    //time: String,
-    total: Number,
+    email: { type: String, required: true },
+    date: { type: Date, required: true },
+    total: { type: Number, required: true },
     items: {
-        fruit: {
-            small: Number, 
-            medium: Number, 
-            large: Number
+        Fruit: {
+            Small: Number, 
+            Medium: Number, 
+            Large: Number
         },
-        vegetable: {
-            small: Number,
-            medium: Number,
-            large: Number
+        Vegetable: {
+            Small: Number,
+            Medium: Number,
+            Large: Number
         },
-        mixed: {
-            small: Number,
-            medium: Number, 
-            large: Number
+        Mixed: {
+            Small: Number,
+            Medium: Number, 
+            Large: Number
         }
     }
 },

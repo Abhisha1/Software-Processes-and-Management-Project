@@ -19,6 +19,7 @@ class Order extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
+        this.getQuantities = this.getQuantities.bind(this);
         this.getOrder = this.getOrder.bind(this);
         this.state = this.getInitialState();
     }
@@ -54,12 +55,8 @@ class Order extends Component {
     }
 
     handleSubmitOrder() {
-        /*
-        const order = {
-            date: setHours(setMinutes(new Date(), 0), 16),// this.state.date,
-            total: this.state.total
-        }*/
         const order = this.getOrder();
+        // TODO: Remove console logs
         console.log("Order:  " + JSON.stringify(order));
         console.log("Date:   " + order.date.toDateString());
         console.log("Hour:   " + order.date.getHours());
@@ -134,24 +131,35 @@ class Order extends Component {
             }]
         }
     }
+
+    getQuantities(type) {
+        // Returns a 'quantities' object that can be stored as a value 
+        // for each key in the 'items' field of the 'order' object
+        var quantities = {};
+        var stateQuantities = this.state[type];
+        console.log(JSON.stringify(stateQuantities));
+        for (var entry of stateQuantities) {
+            var size = entry.size;
+            var quantity = entry.quantity;
+            quantities[size] = quantity;
+        }
+        return quantities;
+    }
     
     getOrder() {
-        // Return an order object that can be stored in the database
+        // Return an 'order' object that can be stored in the database
         const order = {
-            email: "sameDate@gmail.com", // TODO: Get actual user's email
-            total: this.state.total,
+            email: "testUser@gmail.com", // TODO: Get actual user's email
             date: this.state.date,
-            //time: this.state.time,
-            // TODO: Replace items object with real state quantities
+            total: this.state.total,
             items: {
-                fruit: {small: 0, medium: 0, large: 0},
-                vegetable: {small: 0, medium: 0, large: 0},
-                mixed: {small: 0, medium: 0, large: 0}
+                Fruit: this.getQuantities('Fruit'),
+                Vegetable: this.getQuantities('Vegetable'),
+                Mixed: this.getQuantities('Mixed')
             }
         }
         return order;
     }
-
 
     render() { 
         return ( 
@@ -171,13 +179,7 @@ class Order extends Component {
                                  onDateChange={this.handleDateChange}
                                  onTimeChange={this.handleTimeChange} />
                         <br />
-                        <div>
-                            {//<p>Date selected is {this.state.date == null ? "None selected" : this.state.date.toString()}</p>
-                            }
-                        </div>
-                        
                     </Col>
-                    
                 </Row>
             </Container>
         );
