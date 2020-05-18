@@ -1,4 +1,4 @@
-// Schema for booking
+// Schema for order
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

@@ -4,6 +4,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from "date-fns/addDays";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
+
+const axios = require('axios').default;
 
 
 class Booking extends Component {
@@ -12,23 +16,29 @@ class Booking extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.getAvailableTimes = this.getAvailableTimes.bind(this);
         this.state = {
             dateSelected: false,
-            timeSelected: false
+            timeSelected: false,
+            availableTimes: null
         }
     }
 
     handleChange(date) {
+        setHours(setMinutes(date, 0), 0);
         this.props.onDateChange(date);
         this.setState({
-            dateSelected: true
+            dateSelected: true,
+            timeSelected: false
         });
+
+        const availableTimes = this.getAvailableTimes(date);
+        console.log(availableTimes);
     }
 
     handleSubmit() {
         this.props.onSubmit();
     }
-
 
     handleSelect(eventKey, event) {
         // Set active button for time selected
@@ -48,6 +58,24 @@ class Booking extends Component {
         });
     }
 
+    getAvailableTimes(date) {
+        //console.log(date.getMinutes());
+        //console.log(date.getHours());
+        const request = { date: date };
+        axios.get('http://localhost:5000/orders/bookings/' + date, {
+        })
+        .then(response => {
+            console.log(response.data);
+            return response.data;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        .then(() => {
+            // Always executed
+        });
+}
+
 
     render() {
         var cartEmpty = this.props.cartEmpty;
@@ -55,8 +83,11 @@ class Booking extends Component {
             return null;
         }
 
-        var minDate = addDays(new Date(), 1);
-        var maxDate = addDays(minDate, 6);
+        var minDate = setHours(setMinutes(addDays(new Date(), 1), 0), 0);
+        var maxDate = setHours(setMinutes(addDays(minDate, 6), 0), 0);
+
+        //const availableTimes = this.getAvailableTimes(minDate);
+        //console.log("Available Times: " + availableTimes);
 
         return (
             <div>
@@ -88,7 +119,7 @@ class Booking extends Component {
                 <br />
                 <div className="text-right">
                     <Button type="submit"
-                            disabled={!(this.state.dateSelected && this.state.timeSelected)}
+                            disabled={(!this.state.dateSelected) || (!this.state.timeSelected)}
                             onClick={this.handleSubmit}>
                                 SUBMIT ORDER
                     </Button>

@@ -59,8 +59,10 @@ class Order extends Component {
             total: this.state.total
         }*/
         const order = this.getOrder();
-        console.log("Order: " + JSON.stringify(order));
-        console.log("Date: " + order.date.toDateString());
+        console.log("Order:  " + JSON.stringify(order));
+        console.log("Date:   " + order.date.toDateString());
+        console.log("Hour:   " + order.date.getHours());
+        console.log("Minute: " + order.date.getMinutes())
 
         // Send HTTP POST request to backend endpoint
         axios.post('http://localhost:5000/orders/add', order)
@@ -132,10 +134,11 @@ class Order extends Component {
     getOrder() {
         // Return an order object that can be stored in the database
         const order = {
-            email: "jjfresh-fan123@gmail.com", // TODO: Get actual user's email
+            email: "sameDate@gmail.com", // TODO: Get actual user's email
             total: this.state.total,
             date: this.state.date,
             time: this.state.time,
+            // TODO: Replace items object with real state quantities
             items: {
                 fruit: {small: 0, medium: 0, large: 0},
                 vegetable: {small: 0, medium: 0, large: 0},
@@ -144,6 +147,7 @@ class Order extends Component {
         }
         return order;
     }
+
 
     render() { 
         return ( 
