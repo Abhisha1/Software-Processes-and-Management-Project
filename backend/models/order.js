@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const orderSchema = new Schema({
     email: String,
     date: Date,
-    time: String,
+    //time: String,
     total: Number,
     items: {
         fruit: {

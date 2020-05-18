@@ -1,3 +1,4 @@
+const setHours = require("date-fns/setHours");
 const router = require('express').Router();
 let Order = require('../models/order');
 
@@ -59,7 +60,8 @@ router.route('/bookings').get((req, res) => {
     });
 });
 
-// Get available times for a specific date
+// Get available times for a specific date and time
+/*
 router.route('/bookings/:date').get((req, res) => {
     const date = req.params.date;
     console.log("Original date: " + date);
@@ -98,6 +100,81 @@ router.route('/bookings/:date').get((req, res) => {
         res.json(response);
     });
 });
+*/
+
+router.route('/bookings/:date').get((req, res) => {
+    const date = new Date(req.params.date);
+    console.log(typeof date);
+    console.log("Date:   " + date);
+    console.log("Hours:  " + date.getHours());
+    console.log("Minutes:" + date.getMinutes());
+
+    const hours = [16, 17, 18];
+    var response = {};
+    var queries = [];
+
+    hours.forEach(hour => {
+        const dateTime = new Date(date).setHours(hour);
+        const query = Order.find({ date: dateTime });
+        queries.push(query);
+    });
+
+    Promise.all(queries)
+           .then(orders => {
+               console.log(orders);
+               const times = [16, 17, 18]
+               /*
+               var availableTimes = times.map((time, i) => {
+                   return { [time]: orders[i].length < 2 }
+               });
+               */
+              var availableTimes = {};
+              for (var i = 0; i < orders.length; i++) {
+                  var time = times[i];
+                  availableTimes[time] = orders[i].length < 2;
+              }
+               console.log(JSON.stringify(availableTimes));
+               res.json(availableTimes);
+           })
+           .catch(error => console.log(error));
+});
+
+
+    // This waits for all promsies to finish
+
+    // Promise.all([LIST_OF_PROMISES])
+    //        .then(values => console.log(values))
+    
+
+
+
+
+
+        /*
+        Order.find(query, (err, results) => {
+            if (err) {
+                res.status(400).json(`Error: ${err}`);
+                throw err
+            }
+            console.log("Results length: " + results.length);
+            if (results.length < 2) {
+                response[hour] = true;
+                //console.log("Results less than two");
+                //console.log(JSON.stringify(response));
+            } else {
+                response[hour] = false;
+                //console.log("Results greater than two");
+            }
+
+            if (hour == 18) {
+                res.json(response);
+                console.log("Final repsonse: " + JSON.stringify(response));
+            }
+        });
+        
+    });
+    */
+
 
 
 module.exports = router;

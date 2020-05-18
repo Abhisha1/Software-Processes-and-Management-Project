@@ -7,7 +7,7 @@ import addDays from "date-fns/addDays";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
-const axios = require('axios').default;
+const axios = require('axios').default; // For IntelliSense
 
 
 class Booking extends Component {
@@ -17,10 +17,11 @@ class Booking extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.getAvailableTimes = this.getAvailableTimes.bind(this);
+
         this.state = {
             dateSelected: false,
             timeSelected: false,
-            availableTimes: null
+            disableTimeSelection: true
         }
     }
 
@@ -32,8 +33,7 @@ class Booking extends Component {
             timeSelected: false
         });
 
-        const availableTimes = this.getAvailableTimes(date);
-        console.log(availableTimes);
+        this.getAvailableTimes(date);
     }
 
     handleSubmit() {
@@ -42,15 +42,17 @@ class Booking extends Component {
 
     handleSelect(eventKey, event) {
         // Set active button for time selected
-        const ids = [1, 2, 3];
-        ids.forEach(id => {
+        const hourIds = [16, 17, 18];
+        hourIds.forEach(id => {
             var button = document.getElementById(id);
             button.className = button.className.replace(" active", "");
         });
         var active = document.getElementById(eventKey);
         active.className += " active";
 
-        const time = event.target.value;
+        const time = Number(event.target.value);
+        console.log("Type of time: " + typeof time);
+        console.log(time);
         this.props.onTimeChange(time);
 
         this.setState({
@@ -58,6 +60,7 @@ class Booking extends Component {
         });
     }
 
+    /*
     getAvailableTimes(date) {
         //console.log(date.getMinutes());
         //console.log(date.getHours());
@@ -65,8 +68,11 @@ class Booking extends Component {
         axios.get('http://localhost:5000/orders/bookings/' + date, {
         })
         .then(response => {
+            const availableTimes = response.data;
+            this.setState({
+                availableTimes: availableTimes
+            });
             console.log(response.data);
-            return response.data;
         })
         .catch(error => {
             console.log(error);
@@ -74,7 +80,19 @@ class Booking extends Component {
         .then(() => {
             // Always executed
         });
-}
+    }*/
+
+
+    
+    async getAvailableTimes(date) {
+
+        const response = await axios.get('http://localhost:5000/orders/bookings/' + date);
+
+        console.log(JSON.stringify(response.data));
+
+
+    }
+
 
 
     render() {
@@ -105,13 +123,13 @@ class Booking extends Component {
                     </div>
                     <div className="col text-right">
                         <Dropdown>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                            <Dropdown.Toggle disabled={!this.state.dateSelected} variant="secondary" id="dropdown-basic">
                                 Select time
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item id="1" as="button" eventKey={1} onSelect={this.handleSelect} value="4:00PM - 5:00PM">4:00PM - 5:00PM</Dropdown.Item>
-                                <Dropdown.Item id="2" as="button" eventKey={2} onSelect={this.handleSelect} value="5:00PM - 6:00PM">5:00PM - 6:00PM</Dropdown.Item>
-                                <Dropdown.Item id="3" as="button" eventKey={3} onSelect={this.handleSelect} value="6:00PM - 7:00PM">6:00PM - 7:00PM</Dropdown.Item>
+                                <Dropdown.Item id="16" as="button" eventKey={16} onSelect={this.handleSelect} value={16}>4:00PM - 5:00PM</Dropdown.Item>
+                                <Dropdown.Item id="17" as="button" eventKey={17} onSelect={this.handleSelect} value={17}>5:00PM - 6:00PM</Dropdown.Item>
+                                <Dropdown.Item id="18" as="button" eventKey={18} onSelect={this.handleSelect} value={18}>6:00PM - 7:00PM</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

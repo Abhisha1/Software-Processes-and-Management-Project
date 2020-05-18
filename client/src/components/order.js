@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import ProductForm from './productForm';
 import Cart from './cart';
 import Booking from './booking';
+import setHours from "date-fns/setHours";
 
 
 class Order extends Component {
@@ -82,8 +83,11 @@ class Order extends Component {
     }
 
     handleTimeChange(time) {
-        this.setState({
-            time: time
+        this.setState((state) => {
+            var date = state.date;
+            return {
+                date: setHours(date, time)
+            }
         });
     }
 
@@ -137,7 +141,7 @@ class Order extends Component {
             email: "sameDate@gmail.com", // TODO: Get actual user's email
             total: this.state.total,
             date: this.state.date,
-            time: this.state.time,
+            //time: this.state.time,
             // TODO: Replace items object with real state quantities
             items: {
                 fruit: {small: 0, medium: 0, large: 0},
@@ -166,7 +170,13 @@ class Order extends Component {
                                  onSubmit={this.handleSubmitOrder}
                                  onDateChange={this.handleDateChange}
                                  onTimeChange={this.handleTimeChange} />
+                        <br />
+                        <div>
+                            <p>Date selected is {this.state.date == null ? "None selected" : this.state.date.toString()}</p>
+                        </div>
+                        
                     </Col>
+                    
                 </Row>
             </Container>
         );
