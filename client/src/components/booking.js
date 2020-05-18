@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Alert from 'react-bootstrap/Alert';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from "date-fns/addDays";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
-const axios = require('axios').default; // For IntelliSense
+const axios = require('axios').default; // Enables IntelliSense for axios
 
 
 class Booking extends Component {
@@ -17,95 +18,96 @@ class Booking extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.getAvailableTimes = this.getAvailableTimes.bind(this);
-
+        this.deactivateTimes = this.deactivateTimes.bind(this);
+        this.activateTime = this.activateTime.bind(this);
         this.state = {
             dateSelected: false,
             timeSelected: false,
-            disableTimeSelection: true
+            disableTimeSelection: true,
+            orderSubmitted: false,
+            16: false, // 4PM to 5PM booking availability
+            17: false, // 5PM to 6PM booking availability 
+            18: false  // 6PM to 7PM booking availability
         }
     }
 
     handleChange(date) {
-        setHours(setMinutes(date, 0), 0);
+        var date = setHours(setMinutes(date, 0), 0);
         this.props.onDateChange(date);
         this.setState({
             dateSelected: true,
             timeSelected: false
         });
-
         this.getAvailableTimes(date);
     }
 
     handleSubmit() {
         this.props.onSubmit();
+        this.setState({
+            orderSubmitted: true
+        });
     }
 
-    handleSelect(eventKey, event) {
-        // Set active button for time selected
-        const hourIds = [16, 17, 18];
+    deactivateTimes() {
+        const hourIds = ['16', '17', '18'];
         hourIds.forEach(id => {
             var button = document.getElementById(id);
             button.className = button.className.replace(" active", "");
         });
-        var active = document.getElementById(eventKey);
+    }
+
+    activateTime(id) {
+        var active = document.getElementById(id);
         active.className += " active";
 
-        const time = Number(event.target.value);
-        console.log("Type of time: " + typeof time);
-        console.log(time);
-        this.props.onTimeChange(time);
+    }
 
+    handleSelect(eventKey, event) {
+        // Set button to be active for time selected
+        this.deactivateTimes();
+        this.activateTime(eventKey);
+
+        // Update the order
+        const time = Number(event.target.value);
+        this.props.onTimeChange(time);
         this.setState({
             timeSelected: true
         });
     }
-
-    /*
-    getAvailableTimes(date) {
-        //console.log(date.getMinutes());
-        //console.log(date.getHours());
-        const request = { date: date };
-        axios.get('http://localhost:5000/orders/bookings/' + date, {
-        })
-        .then(response => {
-            const availableTimes = response.data;
-            this.setState({
-                availableTimes: availableTimes
-            });
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        .then(() => {
-            // Always executed
-        });
-    }*/
-
-
-    
+ 
     async getAvailableTimes(date) {
+        // Disable time selection until server returns available times
+        this.setState({
+            disableTimeSelection: true
+        });
 
+        // Get time availabilities for date from server
         const response = await axios.get('http://localhost:5000/orders/bookings/' + date);
 
-        console.log(JSON.stringify(response.data));
+        // Update availabilities in UI
+        const availableTimes = response.data;
+        for (let [time, availability] of Object.entries(availableTimes)) {
+            this.setState({
+                [time]: availability
+            });
+        }
 
-
+        // Enable time selection
+        this.setState({
+            disableTimeSelection: false
+        });
     }
 
-
-
     render() {
+        // If cart is empty, render nothing
         var cartEmpty = this.props.cartEmpty;
         if (cartEmpty) {
             return null;
         }
 
+        // Set available booking days for only the next week
         var minDate = setHours(setMinutes(addDays(new Date(), 1), 0), 0);
         var maxDate = setHours(setMinutes(addDays(minDate, 6), 0), 0);
-
-        //const availableTimes = this.getAvailableTimes(minDate);
-        //console.log("Available Times: " + availableTimes);
 
         return (
             <div>
@@ -123,13 +125,13 @@ class Booking extends Component {
                     </div>
                     <div className="col text-right">
                         <Dropdown>
-                            <Dropdown.Toggle disabled={!this.state.dateSelected} variant="secondary" id="dropdown-basic">
+                            <Dropdown.Toggle disabled={this.state.disableTimeSelection} variant="secondary" id="dropdown-basic">
                                 Select time
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item id="16" as="button" eventKey={16} onSelect={this.handleSelect} value={16}>4:00PM - 5:00PM</Dropdown.Item>
-                                <Dropdown.Item id="17" as="button" eventKey={17} onSelect={this.handleSelect} value={17}>5:00PM - 6:00PM</Dropdown.Item>
-                                <Dropdown.Item id="18" as="button" eventKey={18} onSelect={this.handleSelect} value={18}>6:00PM - 7:00PM</Dropdown.Item>
+                                <Dropdown.Item id="16" as="button" disabled={!this.state[16]} eventKey={16} onSelect={this.handleSelect} value={16}>4:00PM - 5:00PM</Dropdown.Item>
+                                <Dropdown.Item id="17" as="button" disabled={!this.state[17]} eventKey={17} onSelect={this.handleSelect} value={17}>5:00PM - 6:00PM</Dropdown.Item>
+                                <Dropdown.Item id="18" as="button" disabled={!this.state[18]} eventKey={18} onSelect={this.handleSelect} value={18}>6:00PM - 7:00PM</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
@@ -141,6 +143,16 @@ class Booking extends Component {
                             onClick={this.handleSubmit}>
                                 SUBMIT ORDER
                     </Button>
+                </div>
+                <br />
+                <div>
+                    {this.state.orderSubmitted ? 
+                        <Alert variant="success">
+                            Your order has been successfully submitted!
+                            You will shortly receive an email confirming
+                            your order details.
+                        </Alert>
+                        : null}
                 </div>
             </div>
         );

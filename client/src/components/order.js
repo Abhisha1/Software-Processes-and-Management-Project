@@ -172,7 +172,8 @@ class Order extends Component {
                                  onTimeChange={this.handleTimeChange} />
                         <br />
                         <div>
-                            <p>Date selected is {this.state.date == null ? "None selected" : this.state.date.toString()}</p>
+                            {//<p>Date selected is {this.state.date == null ? "None selected" : this.state.date.toString()}</p>
+                            }
                         </div>
                         
                     </Col>
