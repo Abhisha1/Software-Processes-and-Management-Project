@@ -1,4 +1,3 @@
-const setHours = require("date-fns/setHours");
 const router = require('express').Router();
 let Order = require('../models/order');
 
