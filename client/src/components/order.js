@@ -63,7 +63,7 @@ class Order extends Component {
         console.log("Minute: " + order.date.getMinutes())
 
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/orders/add', order)
+        axios.post('https://jjfresh.herokuapp.com/orders/add', order)
             .then(res => {
                 console.log(res.data);
                 //this.props.history.push("/home");

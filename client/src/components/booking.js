@@ -82,7 +82,7 @@ class Booking extends Component {
         });
 
         // Get time availabilities for date from server
-        const response = await axios.get('http://localhost:5000/orders/bookings/' + date);
+        const response = await axios.get('https://jjfresh.herokuapp.com/orders/bookings/' + date);
 
         // Update availabilities in UI
         const availableTimes = response.data;
