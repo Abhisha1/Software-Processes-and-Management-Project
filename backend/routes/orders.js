@@ -56,7 +56,7 @@ router.route('/bookings/:date').get((req, res) => {
     var queries = [];
     hours.forEach(hour => {
         const dateTime = new Date(dateAEST).setHours(hour);
-        console.log("Hour: " + hour + " " + dateTime.toISOString());
+        //console.log("Hour: " + hour + " " + dateTime.toISOString());
         const query = Order.find({ date: dateTime });
         queries.push(query);
     });
