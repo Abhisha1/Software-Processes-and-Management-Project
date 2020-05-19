@@ -1,0 +1,26 @@
+.navbar-brand{
+    font-weight: 800;
+    color: rgb(39, 39, 46);
+}
+.btn-outline-primary{
+    color: white;
+    font-weight: 600;
+    text-emphasis-color: white;
+    background-color: rgb(39, 39, 46);
+    border-color: rgb(39, 39, 46);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:active{
+    color: rgb(39, 39, 46);
+    font-weight: 600;
+    text-emphasis-color: white;
+    background-color: white;
+    border-color: rgb(39, 39, 46);
+}
+
+
+
+
+ul{
+    justify-content: space-evenly;
+}
