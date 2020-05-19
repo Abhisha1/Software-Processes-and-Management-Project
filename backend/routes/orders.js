@@ -10,25 +10,16 @@ router.route('/').get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
+    console.log("New order incoming");
     const email = req.body.email;
-    const date = req.body.date;
     const total = req.body.total;
     const items = req.body.items;
-
-
-
-    console.log("New order incoming");
-    var dateObject=  new Date(date);
-    console.log("Date: " + dateObject);
-    console.log("Hours: " + dateObject.getHours());
-    console.log("Minutes: " + dateObject.getMinutes());
-
     const dateUTC = new Date(req.body.date);
     const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
     const dateAEST = new Date(timeAEST);
-
-
-
+    console.log("Date:    " + dateAEST);
+    console.log("Hours:   " + dateAEST.getHours());
+    console.log("Minutes: " + dateAEST.getMinutes());
 
     const order = new Order({
         email: email,
@@ -56,7 +47,6 @@ router.route('/bookings/:date').get((req, res) => {
     var queries = [];
     hours.forEach(hour => {
         const dateTime = new Date(dateAEST).setHours(hour);
-        //console.log("Hour: " + hour + " " + dateTime.toISOString());
         const query = Order.find({ date: dateTime });
         queries.push(query);
     });
