@@ -12,9 +12,10 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const email = req.body.email;
     const date = req.body.date;
-    const time = req.body.time;
     const total = req.body.total;
     const items = req.body.items;
+
+
 
     console.log("New order incoming");
     var dateObject=  new Date(date);
@@ -22,10 +23,16 @@ router.route('/add').post((req, res) => {
     console.log("Hours: " + dateObject.getHours());
     console.log("Minutes: " + dateObject.getMinutes());
 
+    const dateUTC = new Date(req.body.date);
+    const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
+    const dateAEST = new Date(timeAEST);
+
+
+
+
     const order = new Order({
         email: email,
-        date: date,
-        time: time,
+        date: dateAEST,
         total: total,
         items: items
     });
@@ -49,6 +56,7 @@ router.route('/bookings/:date').get((req, res) => {
     var queries = [];
     hours.forEach(hour => {
         const dateTime = new Date(dateAEST).setHours(hour);
+        console.log("Hour: " + hour + " " + dateTime.toISOString());
         const query = Order.find({ date: dateTime });
         queries.push(query);
     });
