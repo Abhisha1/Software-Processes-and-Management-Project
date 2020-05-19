@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SignOut from '../signout';
+import SignOut from '../Signout';
 import './navbar.scss';
 
-const AuthNav = <ul className="navbar-nav nav-fill w-100">
+const AuthNav = 
+<ul className="navbar-nav nav-fill w-100">
+<ul className="navbar-nav nav-fill w-50">
     <li className="navbar-item">
         <a href="/edit" className="btn btn-outline-primary my-2 my-sm-0">Edit User</a>
     </li>
     <li className="navbar-item">
         <a href="/order" className="btn btn-outline-primary my-2 my-sm-0">Order</a>
     </li>
+    </ul>
     <SignOut></SignOut>
 </ul>
 
-const UnAuthNavBar = <ul className="navbar-nav nav-fill w-100">
+const UnAuthNavBar = <ul className="navbar-nav nav-fill w-50">
     <li className="navbar-item">
     <a href="/user" className="btn btn-outline-primary my-2 my-sm-0">Create User</a>
     </li>

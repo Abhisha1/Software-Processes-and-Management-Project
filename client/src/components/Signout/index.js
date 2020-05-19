@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './signout.scss'
 
 function clearCookie(){
     console.log("he")
@@ -9,7 +9,7 @@ function clearCookie(){
 function SignOut(){
     return (
         <form className="form-inline my-2 my-lg-0">
-            <button className="btn btn-outline-primary my-2 my-sm-0" onClick={() => {clearCookie()}}>Sign Out</button>
+            <button id="signout" className="btn btn-outline-primary my-2 my-sm-0" onClick={() => {clearCookie()}}>Sign Out</button>
         </form>
     )
 }

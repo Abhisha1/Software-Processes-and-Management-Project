@@ -6,7 +6,7 @@ import Navbar from "./components/NavBar";
 import PrivateRoute from "./components/protectedRoutes";
 import CreateUser from "./components/createUser";
 import Order from "./components/order";
-import Login from "./components/login";
+import Login from "./components/Login";
 import Home from "./components/home";
 import EditUser from "./components/edit-user";
 
