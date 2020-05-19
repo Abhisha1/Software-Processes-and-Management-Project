@@ -9,6 +9,7 @@ import Order from "./components/order";
 import Login from "./components/login";
 import Home from "./components/home";
 import EditUser from "./components/edit-user";
+import ViewBookings from "./components/ViewBooking";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/home" component={Home} exact={true} />
         <PrivateRoute path="/edit" component={EditUser} exact={true} />
+        <PrivateRoute path="/viewBookings" component={ViewBookings} exact={true} />
        </div>
     </Router>
 

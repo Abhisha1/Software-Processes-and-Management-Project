@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default class Home extends Component {
-    render() {
-        
+function Home(){
         return (
             <div>
                 <h3>Home</h3>
-                
+                <a href="/viewBookings" className="btn btn-primary">View all orders</a>
             </div>
         );
-    }
 }
+
+export default Home;

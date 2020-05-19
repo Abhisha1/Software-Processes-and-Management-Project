@@ -1,0 +1,21 @@
+#EditButtons{
+    display:flex;
+    width: 30%; 
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+#modify{
+    margin-inline-end: auto;
+}
+#button1, #modify{
+    color: rgb(39, 39, 46);
+    font-weight: 600;
+    background-color: white;
+    border-color: rgb(39, 39, 46);
+}
+#button1:active, #button1:hover, #modify:hover, #modify:active{
+    color: white;
+    font-weight: 600;
+    background-color: rgb(39, 39, 46);
+    border-color: rgb(39, 39, 46);
+}
