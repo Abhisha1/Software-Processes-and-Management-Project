@@ -36,8 +36,8 @@ function ViewBookings() {
     const [data, setData] = useState({ bookings: [] });
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        async function fetchData() { await axios.post('http://localhost:5000/users/getCurrUser', { id: getCookie("uId") })
+    useEffect(() => 
+        axios.post('http://localhost:5000/users/getCurrUser', { id: getCookie("uId") })
                 .then(res => {
                     console.log(res);
                     setEmail(res.data.data.email);
@@ -55,9 +55,7 @@ function ViewBookings() {
                 .catch(err => {
                     console.log(err);
                     setIsLoading(false);
-                })
-            }fetchData()
-        }, []);
+                }), []);
 
 
 
@@ -91,7 +89,7 @@ function ViewBookings() {
                 </button>
                 : ( data.bookings != [] ? 
                     <div>
-                        {console.log(data.bookings)}
+                        {/* {console.log(data.bookings)} */}
                         {data.bookings.map((item, index) => (
                             <div className="card" key={index} >
                                 <div className="card-body">
@@ -114,7 +112,7 @@ function ViewBookings() {
                         ))}
                     </div>
                     : 
-                    <p>{console.log("hello")}You don't have any orders yet</p>
+                    <p>You don't have any orders yet</p>
                     
                 )
             }
