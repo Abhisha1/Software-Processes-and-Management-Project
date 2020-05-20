@@ -14,8 +14,8 @@ function App() {
         <Route path="/user" exact component={CreateUser} />
       </div>
     </Router>
-
   );
 }
+
 
 export default App;

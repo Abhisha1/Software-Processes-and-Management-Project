@@ -1,29 +1,56 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-export default class CreateUser extends Component {
+class CreateUser extends Component {
     constructor(props) {
         super(props);
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeMobile = this.onChangeMobile.bind(this);
+        this.onChangeHome = this.onChangeHome.bind(this);
+        this.onChangeWork = this.onChangeWork.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            showError: false,
+            showMobileError: false,
+            mobile : '',
+            home : '',
+            work : ''
         }
     }
 
     onChangeEmail(e) {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
+            showError: false
         });
     }
 
     onChangePassword(e) {
         this.setState({
-            password: e.target.value
+            password: e.target.value,
+            showError: false
+        });
+    }
+    onChangeMobile(e) {
+        this.setState({
+            mobile: e.target.value,
+            showError: false
+        });
+    }onChangeHome(e) {
+        this.setState({
+            home: e.target.value,
+            showError: false
+        });
+    }onChangeWork(e) {
+        this.setState({
+            work: e.target.value,
+            showError: false
         });
     }
 
@@ -31,19 +58,36 @@ export default class CreateUser extends Component {
         e.preventDefault(); // Prevent default HTML submit form behaviour
         const user = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            mobile: this.state.mobile,
+            home: this.state.home,
+            work: this.state.work
         };
         console.log(user);
 
-        // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/users/add', user)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err));
+        if(this.state.mobile === '' && this.state.home === '' && this.state.work === ''){
+            this.setState({
+                showMobileError: true
+            })
+        }else {
+            // Send HTTP POST request to backend endpoint
+            axios.post('http://localhost:5000/users/add', user)
+                .then(res => {
+                    console.log(res.data);
+                    this.props.history.push("/home");
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({
+                        showError: true
+                    })
+                });
 
-        this.setState({
-            email: '',
-            password: ''
-        });
+            this.setState({
+                email: '',
+                password: ''
+            });
+        }
     }
 
 
@@ -70,13 +114,60 @@ export default class CreateUser extends Component {
                             value={this.state.password}
                             onChange={this.onChangePassword}
                             placeholder="Password"
+
+                        />
+
+                    </div>
+                    <div className="form-group">
+                        <label>Mobile Number</label>
+                        <input type="text"
+                               id="mobile"
+                               className="form-control"
+                               value={this.state.mobile}
+                               onChange={this.onChangeMobile}
+                               placeholder="Mobile Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Home number</label>
+                        <input type="text"
+                               id="home-number"
+                               className="form-control"
+                               value={this.state.home}
+                               onChange={this.onChangeHome}
+                               placeholder="Home Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Work Number</label>
+                        <input type="text"
+
+                               id="work"
+                               className="form-control"
+                               value={this.state.work}
+                               onChange={this.onChangeWork}
+                               placeholder="Work Number"
                         />
                     </div>
                     <div className="form-group">
                         <input type ="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
+                    {this.state.showError ? 
+                        <div className="alert alert-danger" role="alert" >
+                        The details you entered are invalid, please try again
+                    </div>
+                    : 
+                    <div></div>}
+                    {this.state.showMobileError ?
+                        <div id="error2" className="alert alert-danger" role="alert" >
+                            You must enter at least one phone number
+                        </div>
+                        :
+                        <div></div>}
                 </form>
             </div>
         );
     }
 }
+
+export default withRouter(CreateUser);

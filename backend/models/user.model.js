@@ -11,10 +11,23 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
+    mobile: {
+        type: String
+    },
+    home: {
+        type: String
+    },
+    work: {
+        type: String
+    }
+
+
+
 },
 {
+    strict:false,
     timestamps: true,
 });
 
