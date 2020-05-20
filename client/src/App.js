@@ -2,8 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Navbar from "./components/navbar.component";
-import CreateUser from "./components/create-user.component";
+import Navbar from "./components/navbar";
+import PrivateRoute from "./components/protectedRoutes";
+import CreateUser from "./components/createUser";
+import Order from "./components/order";
+import Login from "./components/login";
+import Home from "./components/home";
+import EditUser from "./components/edit-user";
 
 function App() {
   return (
@@ -12,7 +17,11 @@ function App() {
         <Navbar />
         <br/>
         <Route path="/user" exact component={CreateUser} />
-      </div>
+        <PrivateRoute path="/order" component={Order} exact={true} />
+        <Route path="/login" exact component={Login} />
+        <PrivateRoute path="/home" component={Home} exact={true} />
+        <PrivateRoute path="/edit" component={EditUser} exact={true} />
+       </div>
     </Router>
   );
 }

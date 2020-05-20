@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
 
+
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 // Establish connection to MongoDB Atlas cluster
@@ -19,7 +22,10 @@ connection.once('open', () => {
 
 // Set routers
 const usersRouter = require('./routes/users');
+const ordersRouter = require('./routes/orders');
+
 app.use('/users', usersRouter);
+app.use('/orders', ordersRouter);
 
 // Passively listen on specified port
 app.listen(port, () => {

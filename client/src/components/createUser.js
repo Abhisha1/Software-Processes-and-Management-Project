@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -70,11 +76,13 @@ class CreateUser extends Component {
                 showMobileError: true
             })
         }else {
+
             // Send HTTP POST request to backend endpoint
-            axios.post('http://localhost:5000/users/add', user)
+            axios.post('https://jjfresh.herokuapp.com/users/add', user)
                 .then(res => {
                     console.log(res.data);
-                    this.props.history.push("/home");
+                    setCookie("authorised", "userIsAuthorised", 0.02);
+                    window.location.href = "/home";
                 })
                 .catch(err => {
                     console.log(err);
@@ -83,11 +91,10 @@ class CreateUser extends Component {
                     })
                 });
 
-            this.setState({
-                email: '',
-                password: ''
-            });
-        }
+        this.setState({
+            email: '',
+            password: ''
+        });
     }
 
 
@@ -98,7 +105,8 @@ class CreateUser extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
-                        <input type="text"
+                        <input type="email"
+                            id="email"
                             required
                             className="form-control"
                             value={this.state.email}
@@ -109,6 +117,7 @@ class CreateUser extends Component {
                     <div className="form-group">
                         <label>Password</label>
                         <input type="password"
+                            id="password"
                             required
                             className="form-control"
                             value={this.state.password}
@@ -150,13 +159,13 @@ class CreateUser extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type ="submit" value="Sign up" className="btn btn-primary"/>
+                        <input type="submit" id="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
-                    {this.state.showError ? 
-                        <div className="alert alert-danger" role="alert" >
+                    {this.state.showError ?
+                        <div id="error" className="alert alert-danger" role="alert" >
                         The details you entered are invalid, please try again
                     </div>
-                    : 
+                    :
                     <div></div>}
                     {this.state.showMobileError ?
                         <div id="error2" className="alert alert-danger" role="alert" >

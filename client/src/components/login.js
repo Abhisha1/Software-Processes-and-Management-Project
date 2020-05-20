@@ -2,19 +2,27 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
+
+function setCookie(cname, cvalue, exdays) {
+    console.log("Set");
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this)
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             email: '',
             password: '',
             showError: false,
-
+            redirect: false
         }
     }
 
@@ -39,15 +47,15 @@ class Login extends Component {
             password: this.state.password
         };
 
-
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/users/login', user)
+        axios('https://jjfresh.herokuapp.com/users/login', {method: "post", data: user})
             .then(res => {
-                //  console.log(res.data);
-                this.props.history.push("/home");
+              // console.log(res);
+               setCookie("authorised", "userIsAuthorised", 0.02);
+               window.location.href = "/home";
             })
             .catch(err => {
-                // console.log(err);
+               // console.log(err);
                 this.setState({
                     showError: true
                 })
@@ -63,7 +71,7 @@ class Login extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
-                        <input type="text"
+                        <input type="email"
                             required
                             className="form-control"
                             value={this.state.email}
@@ -83,7 +91,6 @@ class Login extends Component {
                             placeholder="Password"
                         />
                     </div>
-
                     <div className="form-group">
                         <input type ="submit" value="Log in" id="submit" className="btn btn-primary"/>
                     </div>
@@ -93,7 +100,6 @@ class Login extends Component {
                     </div>
                     : 
                     <div></div>}
-
                 </form>
             </div>
         );
