@@ -71,11 +71,11 @@ class CreateUser extends Component {
         };
         console.log(user);
 
-        if(this.state.mobile === '' && this.state.home === '' && this.state.work === ''){
+        if (this.state.mobile === '' && this.state.home === '' && this.state.work === '') {
             this.setState({
                 showMobileError: true
             })
-        }else {
+        } else {
 
             // Send HTTP POST request to backend endpoint
             axios.post('https://jjfresh.herokuapp.com/users/add', user)
@@ -91,14 +91,14 @@ class CreateUser extends Component {
                     })
                 });
 
-        this.setState({
-            email: '',
-            password: ''
-        });
+            this.setState({
+                email: '',
+                password: ''
+            });
+        }
     }
 
-
-    render() {
+    render(){
         return (
             <div>
                 <h3>Create account</h3>
