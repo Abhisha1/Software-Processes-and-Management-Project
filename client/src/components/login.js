@@ -48,10 +48,11 @@ class Login extends Component {
         };
 
         // Send HTTP POST request to backend endpoint
-        axios('https://jjfresh.herokuapp.com/users/login', {method: "post", data: user})
+        axios('http://localhost:5000/users/login', {method: "post", data: user})
             .then(res => {
                console.log(res);
                setCookie("authorised", "userIsAuthorised", 0.02);
+               setCookie("uId", res.data.id, 0.02);
                window.location.href = "/home";
             })
             .catch(err => {

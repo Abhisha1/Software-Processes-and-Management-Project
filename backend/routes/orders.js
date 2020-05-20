@@ -35,6 +35,20 @@ router.route('/add').post((req, res) => {
          .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+router.route('/:email').get((req,res) => {
+    const email = req.params.emaill
+    Order.find({email: email})
+    .then(orders => {
+        console.log(orders);
+        res.json(orders);
+    })
+    .catch(err => {
+        console.log(err);
+        res.send({});
+    })
+})
+
+
 
 router.route('/bookings/:date').get((req, res) => {
     const date = new Date(req.params.date);

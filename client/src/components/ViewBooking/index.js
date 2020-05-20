@@ -3,56 +3,66 @@ import axios from 'axios';
 import './viewBooking.scss';
 
 
-const confirmationModal = 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+const confirmationModal =
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    console.log(value);
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 
 function ViewBookings() {
     const [data, setData] = useState({ bookings: [] });
-    const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            // Send HTTP POST request to backend endpoint
-            await axios('https://jjfresh.herokuapp.com/orders/', { method: "get" })
+        async function fetchData() { await axios.post('http://localhost:5000/users/getCurrUser', { id: getCookie("uId") })
                 .then(res => {
                     console.log(res);
-                    setData({ bookings: res.data });
+                    setEmail(res.data.data.email);
+                    return res.data.data.email;
+                })
+                .then(
+                    email => axios.get("http://localhost:5000/orders/" + email)
+                )
+                .then(booking => {
+                    console.log(booking)
+                    setData({ bookings: booking.data });
+                    console.log(data);
                     setIsLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
                     setIsLoading(false);
-                });
-
-        }
-
-        fetchData();
-    }, [])
+                })
+            }fetchData()
+        }, []);
 
 
 
     function getOrderedBoxes(produce) {
+        console.log(document.cookie);
         var orderDetails = "";
         if (produce.Small > 0) {
             orderDetails += "Small: " + produce.Small;
@@ -79,8 +89,9 @@ function ViewBookings() {
                     <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span className="sr-only">Loading...</span>
                 </button>
-                : (
+                : ( data.bookings != [] ? 
                     <div>
+                        {console.log(data.bookings)}
                         {data.bookings.map((item, index) => (
                             <div className="card" key={index} >
                                 <div className="card-body">
@@ -102,6 +113,9 @@ function ViewBookings() {
                             </div>
                         ))}
                     </div>
+                    : 
+                    <p>{console.log("hello")}You don't have any orders yet</p>
+                    
                 )
             }
         </div>
