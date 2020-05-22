@@ -42,14 +42,14 @@ function ViewBookings(props) {
     }
     useEffect(() => {
         const fetchData = async () => {
-            axios.post('http://localhost:5000/users/getCurrUser', { id: getCookie("uId") })
+            axios.post('https://jjfresh.herokuapp.com/users/getCurrUser', { id: getCookie("uId") })
                 .then(res => {
                     console.log(res);
                     setEmail(res.data.data.email);
                     return res.data.data.email;
                 })
                 .then(
-                    email => axios.get("http://localhost:5000/orders/" + email + "/")
+                    email => axios.get("https://jjfresh.herokuapp.com/orders/" + email + "/")
                 )
                 .then(booking => {
                     console.log(booking)
@@ -89,7 +89,7 @@ function ViewBookings(props) {
 
     async function removeOrder(){
         console.log(id);
-        await axios.get("http://localhost:5000/orders/delete/"+ id)
+        await axios.get("https://jjfresh.herokuapp.com/orders/delete/"+ id)
         .then(res => {
             setIsOpen(false);
             console.log(res);

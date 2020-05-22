@@ -46,7 +46,7 @@ class CreateUser extends Component {
         console.log(user);
 
         // Send HTTP POST request to backend endpoint
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('https://jjfresh.herokuapp.com/users/add', user)
             .then(res => {
                 console.log(res.data);
                 setCookie("authorised", "userIsAuthorised", 0.02);
