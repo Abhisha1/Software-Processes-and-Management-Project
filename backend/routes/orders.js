@@ -9,22 +9,20 @@ router.route('/').get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
+    console.log("New order incoming");
     const email = req.body.email;
-    const date = req.body.date;
-    const time = req.body.time;
     const total = req.body.total;
     const items = req.body.items;
-
-    console.log("New order incoming");
-    var dateObject=  new Date(date);
-    console.log("Date: " + dateObject);
-    console.log("Hours: " + dateObject.getHours());
-    console.log("Minutes: " + dateObject.getMinutes());
+    const dateUTC = new Date(req.body.date);
+    const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
+    const dateAEST = new Date(timeAEST);
+    console.log("Date:    " + dateAEST);
+    console.log("Hours:   " + dateAEST.getHours());
+    console.log("Minutes: " + dateAEST.getMinutes());
 
     const order = new Order({
         email: email,
-        date: date,
-        time: time,
+        date: dateAEST,
         total: total,
         items: items
     });
@@ -64,16 +62,18 @@ router.route('/delete/:id').get((req, res) => {
 
 
 router.route('/bookings/:date').get((req, res) => {
-    const date = new Date(req.params.date);
-    console.log(typeof date);
-    console.log("Date:   " + date);
-    console.log("Hours:  " + date.getHours());
-    console.log("Minutes:" + date.getMinutes());
+    const dateUTC = new Date(req.params.date);
+    const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
+    const dateAEST = new Date(timeAEST);
+    //console.log(typeof date);
+    //console.log("Date:   " + date);
+    //console.log("Hours:  " + date.getHours());
+    //console.log("Minutes:" + date.getMinutes());
 
     const hours = [16, 17, 18];
     var queries = [];
     hours.forEach(hour => {
-        const dateTime = new Date(date).setHours(hour);
+        const dateTime = new Date(dateAEST).setHours(hour);
         const query = Order.find({ date: dateTime });
         queries.push(query);
     });
