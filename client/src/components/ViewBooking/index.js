@@ -150,8 +150,8 @@ function ViewBookings(props) {
                                         </Modal.Header>
                                         <Modal.Body>Are you sure you want to do this?</Modal.Body>
                                         <Modal.Footer>
-                                            <button className="btn btn-primary" onClick={hideModal}>Cancel</button>
-                                            {isModify ? <button className="btn btn-primary" onClick={() => removeOrder()}>Modify</button>
+                                            <button id="confirmCancel" className="btn btn-primary" onClick={hideModal}>Cancel</button>
+                                            {isModify ? <button id="confirmModify" className="btn btn-primary" onClick={() => removeOrder()}>Modify</button>
                                             : <button id="confirmDelete" className="btn btn-primary" onClick={() => removeOrder()}>Delete</button>}
                                         </Modal.Footer>
                                     </Modal>

@@ -7,13 +7,16 @@
 #modify{
     margin-inline-end: auto;
 }
-#remove, #modify{
+#remove, #modify, #confirmCancel, #confirmModify, #confirmDelete{
     color: rgb(39, 39, 46);
     font-weight: 600;
     background-color: white;
     border-color: rgb(39, 39, 46);
 }
-#remove:active, #remove:hover, #modify:hover, #modify:active{
+#remove:active, #remove:hover, #modify:hover,
+#modify:active,#confirmModify:hover, #confirmModify:active,
+#confirmDelete:hover, #confirmDelete:active,
+#confirmCancel:hover, #confirmCancel:active{
     color: white;
     font-weight: 600;
     background-color: rgb(39, 39, 46);
