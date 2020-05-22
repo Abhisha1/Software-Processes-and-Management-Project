@@ -52,6 +52,7 @@ class Login extends Component {
             .then(res => {
               // console.log(res);
                setCookie("authorised", "userIsAuthorised", 0.02);
+               setCookie("uId", res.data.id, 0.02);
                window.location.href = "/home";
             })
             .catch(err => {
