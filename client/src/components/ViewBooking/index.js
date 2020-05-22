@@ -49,7 +49,7 @@ function ViewBookings(props) {
                     return res.data.data.email;
                 })
                 .then(
-                    email => axios.get("https://jjfresh.herokuapp.com/orders/" + email + "/")
+                    email => axios.get("https://jjfresh.herokuapp.com/orders/" + email)
                 )
                 .then(booking => {
                     console.log(booking)
