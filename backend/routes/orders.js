@@ -1,7 +1,6 @@
 const router = require('express').Router();
 let Order = require('../models/order');
 
-
 router.route('/').get((req, res) => {
     Order.find()
          .then(orders => res.json(orders))
@@ -36,7 +35,8 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/:email').get((req,res) => {
-    const email = req.params.emaill
+    const email = req.params.email
+    console.log(email);
     Order.find({email: email})
     .then(orders => {
         console.log(orders);
@@ -48,6 +48,19 @@ router.route('/:email').get((req,res) => {
     })
 })
 
+router.route('/delete/:id').get((req, res) => {
+    const orderId = req.params.id;
+    console.log(orderId);
+    Order.findOneAndRemove({"_id": orderId})
+    .then(status => {
+        console.log(status);
+        res.json(status);
+    })
+    .catch(err => {
+        console.log(err);
+        res.json({msg: "Could not delete the order, please try again later"})
+    })
+})
 
 
 router.route('/bookings/:date').get((req, res) => {
