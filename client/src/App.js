@@ -25,8 +25,8 @@ function App() {
         <PrivateRoute path="/viewBookings" component={ViewBookings} exact={true} />
        </div>
     </Router>
-
   );
 }
+
 
 export default App;

@@ -14,7 +14,10 @@ router.route('/add').post((req, res) => {
     const password = req.body.password;
     const newUser = new User({
         email: email,
-        password: password
+        password: password,
+        mobile: req.body.mobile,
+        home:req.body.home,
+        work:req.body.work
     });
     newUser.save()
         .then(() => {
@@ -86,16 +89,21 @@ router.route('/update').post((req, res) => {
             }
             if (isMatch) {
                 user.password = password;
+
+                console.log(req.body)
+                if(req.body.mobile !== ''){
+                    user.mobile = req.body.mobile;
+                }
+                if(req.body.home !== ''){
+                    user.mobile = req.body.home;
+                }
+                if(req.body.work !== ''){
+                    user.mobile = req.body.work;
+                }
                 user.save()
                     .then(() => res.json('User updated!'))
                     .catch(err => res.status(400).json('Error: ' + err));
-                // User.findOneAndUpdate({email:email},{password:password}).then(user =>  {
-                //     // Validate the password
-                //     res.status(200).json({msg: "Update successful"});
-                //     return;
-                // }).catch(err => {
-                //     res.status(400).json({msg: "Update Failed: Please check your details"});
-               // });
+
             } else {
                 res.status(400).json({msg: "old password is incorrect: Please check your details"});
                 return;
