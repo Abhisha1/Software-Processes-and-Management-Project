@@ -16,20 +16,24 @@ router.route('/add').post((req, res) => {
     const dateUTC = new Date(req.body.date);
     const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
     const dateAEST = new Date(timeAEST);
-    console.log("Date:    " + dateAEST);
-    console.log("Hours:   " + dateAEST.getHours());
-    console.log("Minutes: " + dateAEST.getMinutes());
+    //console.log("Date:    " + dateAEST);
+    //console.log("Hours:   " + dateAEST.getHours());
+    //console.log("Minutes: " + dateAEST.getMinutes());
 
     const order = new Order({
         email: email,
-        date: dateAEST,
+        date: dateUTC,
         total: total,
         items: items
     });
 
     order.save()
-         .then(() => res.json('Order added!'))
-         .catch(err => res.status(400).json(`Error: ${err}`));
+    .then(() => {
+        res.json('Order added!')
+    })
+    .catch(err => {
+        res.status(400).json(`Error: ${err}`)
+    });
 });
 
 router.route('/:email').get((req,res) => {
@@ -70,6 +74,7 @@ router.route('/bookings/:date').get((req, res) => {
     //console.log("Hours:  " + date.getHours());
     //console.log("Minutes:" + date.getMinutes());
 
+    /*
     const hours = [16, 17, 18];
     var queries = [];
     hours.forEach(hour => {
@@ -91,6 +96,15 @@ router.route('/bookings/:date').get((req, res) => {
                res.json(availableTimes);
            })
            .catch(error => console.log(error));
+    */
+   Order.find({date: date})
+   .then(orders => {
+       res.json(orders.length < 2)
+   })
+   .catch(err => {
+        console.log(err);
+        res.status(400).json(`Error: ${err}`);
+    })
 });
 
 
