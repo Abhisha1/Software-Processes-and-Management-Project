@@ -97,7 +97,7 @@ router.route('/bookings/:date').get((req, res) => {
            })
            .catch(error => console.log(error));
     */
-   Order.find({date: date})
+   Order.find({date: dateUTC})
    .then(orders => {
        res.json(orders.length < 2)
    })
