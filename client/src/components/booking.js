@@ -32,7 +32,7 @@ class Booking extends Component {
     }
 
     handleChange(date) {
-        var date = setHours(setMinutes(date, 0), 0);
+        date = setHours(setMinutes(date, 0), 0);
         this.props.onDateChange(date);
         this.setState({
             dateSelected: true,
@@ -75,22 +75,22 @@ class Booking extends Component {
         });
     }
  
-    async getAvailableTimes(date) {
+    getAvailableTimes(date) {
         // Disable time selection until server returns available times
         this.setState({
             disableTimeSelection: true
         });
 
         // Get time availabilities for date from server
-        const response = await axios.get('https://jjfresh.herokuapp.com/orders/bookings/' + date);
-
-        // Update availabilities in UI
-        const availableTimes = response.data;
-        for (let [time, availability] of Object.entries(availableTimes)) {
+        const times = [16, 17, 18];
+        times.forEach(async (time) => {
+            const dateTime = new Date(date).setHours(time);
+            const response = await axios.get('https://jjfresh.herokuapp.com/orders/bookings/' + dateTime.toISOString());
+            const availability = response.data;
             this.setState({
                 [time]: availability
             });
-        }
+        });
 
         // Enable time selection
         this.setState({
