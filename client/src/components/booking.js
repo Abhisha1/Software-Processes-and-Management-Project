@@ -84,7 +84,7 @@ class Booking extends Component {
         // Get time availabilities for date from server
         const times = [16, 17, 18];
         times.forEach(async (time) => {
-            const dateTime = new Date(date).setHours(time);
+            const dateTime = new Date(date.setHours(time));
             const response = await axios.get('https://jjfresh.herokuapp.com/orders/bookings/' + dateTime.toISOString());
             const availability = response.data;
             this.setState({
