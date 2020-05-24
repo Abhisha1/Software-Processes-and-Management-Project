@@ -103,6 +103,8 @@ orderSchema.pre('save', function(next) {
         }
     });
 
+    var dateAEST = new Date(order.date).toLocaleString("en-AU", {timeZone: "Australia/Melbourne"});
+
     var mailOptions = {
         from: process.env.EMAIL,
         to: order.email,
@@ -194,7 +196,7 @@ orderSchema.pre('save', function(next) {
         
             <div class="delivery-details">
                 <h4>Delivery Date & Time</h4>
-                <p>Your order will be delivered on ${order.date}.</p>
+                <p>Your order will be delivered on ${dateAEST}.</p>
                 <p>Please give us up to an hour starting from the specified time to deliver your order.</p>
             </div>
             <br/>
