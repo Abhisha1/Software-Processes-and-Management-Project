@@ -196,7 +196,7 @@ orderSchema.pre('save', function(next) {
         
             <div class="delivery-details">
                 <h4>Delivery Date & Time</h4>
-                <p>Your order will be delivered on ${dateAEST}.</p>
+                <p>Your order will be delivered on <strong>${dateAEST}</strong>.</p>
                 <p>Please give us up to an hour starting from the specified time to deliver your order.</p>
             </div>
             <br/>
