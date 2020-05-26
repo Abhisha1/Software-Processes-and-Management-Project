@@ -96,8 +96,7 @@ orderSchema.pre('save', function(next) {
         }
     });
 
-    var date = new Date(order.date);
-    var dateString = date.toDateString() + ', ' + date.toLocaleTimeString();
+    var dateAEST = new Date(order.date).toLocaleString("en-AU", {timeZone: "Australia/Melbourne"});
 
     var mailOptions = {
         from: process.env.EMAIL,
@@ -181,7 +180,7 @@ orderSchema.pre('save', function(next) {
         
             <div class="delivery-details">
                 <h4>Delivery Date & Time</h4>
-                <p>Your order will be delivered on <strong>${dateString}</strong>.</p>
+                <p>Your order will be delivered on <strong>${dateAEST}</strong>.</p>
                 <p>Please give us up to an hour starting from the specified time to deliver your order.</p>
             </div>
             <br/>
@@ -214,8 +213,7 @@ orderSchema.pre('remove', function(next) {
         }
     });
 
-    var date = new Date(order.date);
-    var dateString = date.toDateString() + ', ' + date.toLocaleTimeString();
+    var dateAEST = new Date(order.date).toLocaleString("en-AU", {timeZone: "Australia/Melbourne"});
 
     var mailOptions = {
         from: process.env.EMAIL,
@@ -290,7 +288,7 @@ orderSchema.pre('remove', function(next) {
         
             <div class="delivery-details">
                 <h4>Delivery Date & Time</h4>
-                <p>Your order was scheduled be delivered on <strong>${dateString}</strong> but has now been cancelled.</p>
+                <p>Your order was scheduled be delivered on <strong>${dateAEST}</strong> but has now been cancelled.</p>
             </div>
             <br/>
             <div>
