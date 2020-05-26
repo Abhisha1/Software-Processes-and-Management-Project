@@ -49,6 +49,7 @@ router.route('/delete/:id').get((req, res) => {
     console.log(orderId);
     Order.findOneAndRemove({"_id": orderId})
     .then(status => {
+        status.remove();
         console.log(status);
         res.json(status);
     })

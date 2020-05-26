@@ -129,7 +129,7 @@ function ViewBookings(props) {
                         {data.bookings.map((item) => (
                             <div className="card" key={item._id} >
                                 <div className="card-body" target={target.current}>
-                                    <h5 className="card-title">Order</h5>
+                                    <h5 className="card-title">Order #{item._id}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Delivery date: {new Date(item.date).toDateString()}</h6>
 
                                     <h6 className="card-subtitle mb-2 text-muted">Delivery time: {new Date(item.date).toLocaleTimeString()}</h6>
