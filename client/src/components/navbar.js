@@ -4,6 +4,9 @@ import SignOut from './signout';
 
 const AuthNav = <ul className="navbar-nav mr-auto">
     <li className="navbar-item">
+        <Link to="/home" className="nav-link">Home</Link>
+    </li>
+    <li className="navbar-item">
         <Link to="/edit" className="nav-link">Edit User</Link>
     </li>
     <li className="navbar-item">
