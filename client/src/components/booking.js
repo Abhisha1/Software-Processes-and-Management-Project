@@ -138,7 +138,7 @@ class Booking extends Component {
                 </div>
                 <br />
                 <div className="text-right">
-                    <Button type="submit"
+                    <Button id="submitOrder" type="submit"
                             disabled={(!this.state.dateSelected) || (!this.state.timeSelected)}
                             onClick={this.handleSubmit}>
                                 SUBMIT ORDER
