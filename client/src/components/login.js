@@ -59,7 +59,7 @@ class Login extends Component {
             password: this.state.password
         };
         if (this.state.isAdmin){
-            axios('http://localhost:5000/admin/login', {method: "post", data: user})
+            axios('https://jjfresh.herokuapp.com/admin/login', {method: "post", data: user})
             .then(res => {
               // console.log(res);
                setCookie("authorised", "adminIsAuthorised", 0.02);
