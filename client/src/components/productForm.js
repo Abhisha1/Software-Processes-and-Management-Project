@@ -74,7 +74,7 @@ class ProductForm extends Component {
                 <Quantity onQuantityChange={this.handleQuantityChange} 
                           quantity={this.state.quantity}/>
                 <br />
-                <Button type="submit" 
+                <Button id="addToCartButton" type="submit" 
                         onClick={this.handleSubmit}>
                             ADD TO CART
                 </Button>
