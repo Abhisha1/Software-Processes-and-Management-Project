@@ -16,25 +16,13 @@ class Login extends Component {
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.toggleAdmin = this.toggleAdmin.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             email: '',
             password: '',
             showError: false,
-            redirect: false,
-            isAdmin: false
-        }
-    }
-
-    toggleAdmin(e) {
-        if (this.state.isAdmin){
-            this.setState({isAdmin: false});
-        }
-        else{
-            console.log("hello");
-            this.setState({isAdmin: true});
+            redirect: false
         }
     }
 
@@ -58,23 +46,9 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        if (this.state.isAdmin){
-            axios('https://jjfresh.herokuapp.com/admin/login', {method: "post", data: user})
-            .then(res => {
-              // console.log(res);
-               setCookie("authorised", "adminIsAuthorised", 0.02);
-               window.location.href = "/viewBookings";
-            })
-            .catch(err => {
-               // console.log(err);
-                this.setState({
-                    showError: true
-                })
-            });
-        }
+
         // Send HTTP POST request to backend endpoint
-        else{
-            axios('https://jjfresh.herokuapp.com/users/login', {method: "post", data: user})
+        axios('https://jjfresh.herokuapp.com/users/login', {method: "post", data: user})
             .then(res => {
               // console.log(res);
                setCookie("authorised", "userIsAuthorised", 0.02);
@@ -87,7 +61,6 @@ class Login extends Component {
                     showError: true
                 })
             });
-        }
 
     }
 
@@ -95,8 +68,7 @@ class Login extends Component {
     render() {
         return (
             <div>
-                {this.state.isAdmin ? <h3>Admin login</h3> 
-                : <h3>Login</h3>}
+                <h3>Login</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
@@ -119,10 +91,6 @@ class Login extends Component {
                             onChange={this.onChangePassword}
                             placeholder="Password"
                         />
-                    </div>
-                    <div className="form-check">
-                        <input type="checkbox" className="form-check-input" onChange={this.toggleAdmin} id="adminLoginBox" />
-                        <label className="form-check-label" htmlFor="adminLoginBox">Login as a JJFresh admin</label>
                     </div>
                     <div className="form-group">
                         <input type ="submit" value="Log in" id="submit" className="btn btn-primary"/>

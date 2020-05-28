@@ -20,7 +20,6 @@ function ViewBookings(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [isModify, setIsModify] = useState(false);
     const [id, setId] = useState();
-    const [hideEdit, setHideEdit] = useState(false);
     const target = useRef();
 
     const showModal = () => {
@@ -43,8 +42,7 @@ function ViewBookings(props) {
     }
     useEffect(() => {
         const fetchData = async () => {
-            if (getCookie("uId")){
-                axios.post('https://jjfresh.herokuapp.com/users/getCurrUser', { id: getCookie("uId") })
+            axios.post('https://jjfresh.herokuapp.com/users/getCurrUser', { id: getCookie("uId") })
                 .then(res => {
                     console.log(res);
                     setEmail(res.data.data.email);
@@ -63,25 +61,6 @@ function ViewBookings(props) {
                     console.log(err);
                     setIsLoading(false);
                 })
-            }
-            else{
-                axios.get('https://jjfresh.herokuapp.com/orders/')
-                .then(booking => {
-                    console.log(booking)
-                    setHideEdit(true);
-                    setData({ bookings: booking.data });
-                    console.log(data);
-                    setIsLoading(false);
-                })
-                .catch(err => {
-                    console.log(err);
-                    setHideEdit(false);
-                    setIsLoading(false);
-                })
-            }
-
-
-
         }
         fetchData()
     }, []);
@@ -150,7 +129,7 @@ function ViewBookings(props) {
                         {data.bookings.map((item) => (
                             <div className="card" key={item._id} >
                                 <div className="card-body" target={target.current}>
-                                    <h5 className="card-title">Order #{item._id}</h5>
+                                    <h5 className="card-title">Order</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Delivery date: {new Date(item.date).toDateString()}</h6>
 
                                     <h6 className="card-subtitle mb-2 text-muted">Delivery time: {new Date(item.date).toLocaleTimeString()}</h6>
@@ -160,13 +139,11 @@ function ViewBookings(props) {
                                         : <div></div>}
                                     {getOrderedBoxes(item.items.Mixed) ? <p>Mixed {getOrderedBoxes(item.items.Mixed)}</p> : <div></div>}
                                     {getOrderedBoxes(item.items.Vegetable) ? <p>Vegetable {getOrderedBoxes(item.items.Vegetable)}</p> : <div></div>}
-                                    {hideEdit ?
-                                    <div></div> : 
+
                                     <div id="EditButtons">
                                         <a id="modify" className="btn btn-primary" ref={target} onClick={() => modifyModal(item._id)}>Modify</a>
                                     <a id="remove" className="btn btn-primary" ref={target} onClick={() => deleteModal(item._id)}>Remove</a>
                                     </div>
-                                    }
                                     <Modal show={isOpen} onHide={hideModal}>
                                         <Modal.Header>
                                             <Modal.Title>Confirmation</Modal.Title>
@@ -184,7 +161,7 @@ function ViewBookings(props) {
                     </div>
                     :
                     <p>
-                        You don't have any orders yet</p>
+                        {console.log("no orders")}You don't have any orders yet</p>
 
                 )
             }

@@ -9,14 +9,6 @@ import Booking from './booking';
 import setHours from "date-fns/setHours";
 
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    console.log(value);
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-
 class Order extends Component {
     constructor(props) {
         super(props);
@@ -30,19 +22,6 @@ class Order extends Component {
         this.getQuantities = this.getQuantities.bind(this);
         this.getOrder = this.getOrder.bind(this);
         this.state = this.getInitialState();
-    }
-
-    componentDidMount() {
-        axios.post('https://jjfresh.herokuapp.com/users/getCurrUser', { id: getCookie("uId") })
-                .then(res => {
-                    console.log(res);
-                    const email = res.data.data.email;
-                    console.log("Email retrieved: " + email);
-                    this.setState({
-                        email: email
-                    });
-                })
-                .catch(err => console.log(err));
     }
 
     updateState(type, size, quantity) {
@@ -170,7 +149,7 @@ class Order extends Component {
     getOrder() {
         // Return an 'order' object that can be stored in the database
         const order = {
-            email: this.state.email,
+            email: "testUser@gmail.com", // TODO: Get actual user's email
             date: this.state.date,
             total: this.state.total,
             items: {
@@ -206,6 +185,5 @@ class Order extends Component {
         );
     }
 }
-
  
 export default Order;

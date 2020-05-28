@@ -1,19 +1,10 @@
 describe('Logging in tests', () => {
-    it('Login as user with correct values', () => {
+    it('Login with correct values', () => {
         cy.visit('http://localhost:3000/login');
         cy.get('#email').type('abhisha@gmail.com')
         cy.get('#password').type('Test1234')
         cy.get('#submit').click()
         cy.url().should('eq', 'http://localhost:3000/home')
-
-    })
-    it('Login as admin with correct values', () => {
-        cy.visit('http://localhost:3000/login');
-        cy.get("#adminLoginBox").click()
-        cy.get('#email').type('abhisha@gmail.com')
-        cy.get('#password').type('Test1234')
-        cy.get('#submit').click()
-        cy.url().should('eq', 'http://localhost:3000/viewBookings')
 
     })
     it('Login with incorrect email', () => {
