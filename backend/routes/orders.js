@@ -9,27 +9,25 @@ router.route('/').get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
-    console.log("New order incoming");
     const email = req.body.email;
     const total = req.body.total;
     const items = req.body.items;
-    const dateUTC = new Date(req.body.date);
-    const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
-    const dateAEST = new Date(timeAEST);
-    console.log("Date:    " + dateAEST);
-    console.log("Hours:   " + dateAEST.getHours());
-    console.log("Minutes: " + dateAEST.getMinutes());
+    const date = new Date(req.body.date);
 
     const order = new Order({
         email: email,
-        date: dateAEST,
+        date: date,
         total: total,
         items: items
     });
 
     order.save()
-         .then(() => res.json('Order added!'))
-         .catch(err => res.status(400).json(`Error: ${err}`));
+    .then(() => {
+        res.json('Order added!')
+    })
+    .catch(err => {
+        res.status(400).json(`Error: ${err}`)
+    });
 });
 
 router.route('/:email').get((req,res) => {
@@ -51,6 +49,7 @@ router.route('/delete/:id').get((req, res) => {
     console.log(orderId);
     Order.findOneAndRemove({"_id": orderId})
     .then(status => {
+        status.remove();
         console.log(status);
         res.json(status);
     })
@@ -62,35 +61,15 @@ router.route('/delete/:id').get((req, res) => {
 
 
 router.route('/bookings/:date').get((req, res) => {
-    const dateUTC = new Date(req.params.date);
-    const timeAEST = dateUTC.toLocaleString("en-US", {timeZone: "Australia/Melbourne"});
-    const dateAEST = new Date(timeAEST);
-    //console.log(typeof date);
-    //console.log("Date:   " + date);
-    //console.log("Hours:  " + date.getHours());
-    //console.log("Minutes:" + date.getMinutes());
-
-    const hours = [16, 17, 18];
-    var queries = [];
-    hours.forEach(hour => {
-        const dateTime = new Date(dateAEST).setHours(hour);
-        const query = Order.find({ date: dateTime });
-        queries.push(query);
-    });
-
-    Promise.all(queries)
-           .then(orders => {
-               console.log(orders);
-               const times = [16, 17, 18]
-               var availableTimes = {};
-               for (var i = 0; i < orders.length; i++) {
-                   var time = times[i];
-                   availableTimes[time] = orders[i].length < 2;
-               }
-               console.log(JSON.stringify(availableTimes));
-               res.json(availableTimes);
-           })
-           .catch(error => console.log(error));
+    const date = new Date(req.params.date);
+    Order.find({date: date})
+    .then(orders => {
+        res.json(orders.length < 2)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json(`Error: ${err}`);
+    })
 });
 
 
