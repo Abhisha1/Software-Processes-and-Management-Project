@@ -17,7 +17,7 @@ class SizeInfo extends Component {
         switch (size) {
             case "Small":
                 return "couple";
-            case "Medium":
+            case "Medium
                 return "family of 4";
             case "Large":
                 return "family of 6";
