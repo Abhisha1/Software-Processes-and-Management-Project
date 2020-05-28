@@ -8,9 +8,9 @@ export default class Home extends Component {
         return (
             <div>
                 <h3>Home</h3>
-                <img src={Homepage} alt={"JJ Fresh Home Page"}/>
                 <a href="/viewBookings" className="btn btn-primary" id="viewOrderButton">View all orders</a>
             </div>
+
         );
     }
 }

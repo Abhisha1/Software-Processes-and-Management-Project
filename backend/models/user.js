@@ -21,6 +21,9 @@ const userSchema = new Schema({
     },
     work: {
         type: String
+    },
+    address: {
+        type: String
     }
 
 

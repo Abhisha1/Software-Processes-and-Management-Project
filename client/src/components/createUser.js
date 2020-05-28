@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+} from "react-places-autocomplete";
+//
+// import "https://maps.googleapis.com/maps/api/js?key=AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA&libraries=places&callback=initMap";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -10,16 +16,20 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 class CreateUser extends Component {
+
     constructor(props) {
         super(props);
-
+        // this.autocompleteInput = React.createRef();
+        // this.autocomplete = null;
+        // this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeMobile = this.onChangeMobile.bind(this);
         this.onChangeHome = this.onChangeHome.bind(this);
         this.onChangeWork = this.onChangeWork.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
+        // this.handleSelect = this.handleSelect.bind(this);
+        this.onChangeAddress = this.onChangeAddress.bind(this);
         this.state = {
             email: '',
             password: '',
@@ -27,10 +37,33 @@ class CreateUser extends Component {
             showMobileError: false,
             mobile : '',
             home : '',
-            work : ''
+            work : '',
+            address : '',
+
         }
     }
+   /* componentDidMount() {
+        this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
+            {"types": ["geocode"]});
 
+        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
+    }
+    handlePlaceChanged(){
+        const place = this.autocomplete.getPlace();
+        this.props.onPlaceLoaded(place);
+    }*/
+    /*handleSelect = async value => {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+        this.state.setAddress = value;
+        this.state.setCoordinates = latLng;
+    };*/
+    onChangeAddress(e){
+        this.setState({
+            address: e.description,
+            showError: false
+        });
+    }
     onChangeEmail(e) {
         this.setState({
             email: e.target.value,
@@ -68,7 +101,8 @@ class CreateUser extends Component {
             password: this.state.password,
             mobile: this.state.mobile,
             home: this.state.home,
-            work: this.state.work
+            work: this.state.work,
+            address: this.state.address
         };
         console.log(user);
 
@@ -160,6 +194,11 @@ class CreateUser extends Component {
                                placeholder="Work Number"
                         />
                     </div>
+                    <div>
+                        <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
+                            onSelect={this.onChangeAddress}
+                        />
+                    </div>
                     <div className="form-group">
                         <input type="submit" id="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
@@ -176,6 +215,38 @@ class CreateUser extends Component {
                         :
                         <div></div>}
                 </form>
+                {/*<div>
+                    <PlacesAutocomplete
+                        value={this.state.address}
+                        onChange={this.onChangeAddress}
+                        onSelect={this.handleSelect}
+                    >
+                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                            <div>
+                                <p>Latitude: {this.state.coordinates.lat}</p>
+                                <p>Longitude: {this.state.coordinates.lng}</p>
+
+                                <input {...getInputProps({ placeholder: "Type address" })} />
+
+                                <div>
+                                    {loading ? <div>...loading</div> : null}
+
+                                    {suggestions.map(suggestion => {
+                                        const style = {
+                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                                        };
+
+                                        return (
+                                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                {suggestion.description}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                    </PlacesAutocomplete>
+                </div>*/}
             </div>
         );
     }

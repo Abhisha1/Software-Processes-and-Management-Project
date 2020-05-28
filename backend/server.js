@@ -8,13 +8,15 @@ const app = express();
 const port = process.env.PORT;
 
 
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
 // Establish connection to MongoDB Atlas cluster
+
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { userNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(uri, { userNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('MongoDB connection established successfully');
