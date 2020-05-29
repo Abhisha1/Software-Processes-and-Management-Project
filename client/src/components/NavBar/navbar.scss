@@ -9,7 +9,10 @@
     background-color: rgb(39, 39, 46);
     border-color: rgb(39, 39, 46);
     text-transform: uppercase;
-    padding: 0.4em 2em 0.4em 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
 }
 
 .btn-outline-primary:hover, .btn-outline-primary:active{
@@ -19,7 +22,10 @@
     background-color: white;
     border-color: rgb(39, 39, 46);
     text-transform: uppercase;
-    padding: 0.4em 2em 0.4em 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
 }
 
 .w-100{
@@ -27,6 +33,6 @@
 }
 
 
-ul{
+.mr-auto{
     justify-content: space-evenly;
 }

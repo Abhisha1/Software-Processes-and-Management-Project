@@ -13,13 +13,20 @@ class CreateUser extends Component {
         super(props);
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeMobile = this.onChangeMobile.bind(this);
+        this.onChangeHome = this.onChangeHome.bind(this);
+        this.onChangeWork = this.onChangeWork.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             email: '',
             password: '',
-            showError: false
+            showError: false,
+            showMobileError: false,
+            mobile : '',
+            home : '',
+            work : ''
         }
     }
 
@@ -36,37 +43,63 @@ class CreateUser extends Component {
             showError: false
         });
     }
+    onChangeMobile(e) {
+        this.setState({
+            mobile: e.target.value,
+            showError: false
+        });
+    }onChangeHome(e) {
+        this.setState({
+            home: e.target.value,
+            showError: false
+        });
+    }onChangeWork(e) {
+        this.setState({
+            work: e.target.value,
+            showError: false
+        });
+    }
 
     onSubmit(e) {
         e.preventDefault(); // Prevent default HTML submit form behaviour
         const user = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            mobile: this.state.mobile,
+            home: this.state.home,
+            work: this.state.work
         };
         console.log(user);
 
-        // Send HTTP POST request to backend endpoint
-        axios.post('https://jjfresh.herokuapp.com/users/add', user)
-            .then(res => {
-                console.log(res.data);
-                setCookie("authorised", "userIsAuthorised", 0.02);
-                window.location.href = "/home";
+        if (this.state.mobile === '' && this.state.home === '' && this.state.work === '') {
+            this.setState({
+                showMobileError: true
             })
-            .catch(err => {
-                console.log(err);
-                this.setState({
-                    showError: true
-                })
-            });
+        } else {
 
-        this.setState({
-            email: '',
-            password: ''
-        });
+            // Send HTTP POST request to backend endpoint
+            axios.post('https://jjfresh.herokuapp.com/users/add', user)
+                .then(res => {
+                    console.log(res.data);
+                    setCookie("authorised", "userIsAuthorised", 0.02);
+                    setCookie("uId", res.data.id, 0.02);
+                    window.location.href = "/home";
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({
+                        showError: true
+                    })
+                });
+
+            this.setState({
+                email: '',
+                password: ''
+            });
+        }
     }
 
-
-    render() {
+    render(){
         return (
             <div>
                 <h3>Create account</h3>
@@ -91,17 +124,56 @@ class CreateUser extends Component {
                             value={this.state.password}
                             onChange={this.onChangePassword}
                             placeholder="Password"
+
+                        />
+
+                    </div>
+                    <div className="form-group">
+                        <label>Mobile Number</label>
+                        <input type="text"
+                               id="mobile"
+                               className="form-control"
+                               value={this.state.mobile}
+                               onChange={this.onChangeMobile}
+                               placeholder="Mobile Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Home number</label>
+                        <input type="text"
+                               id="home-number"
+                               className="form-control"
+                               value={this.state.home}
+                               onChange={this.onChangeHome}
+                               placeholder="Home Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Work Number</label>
+                        <input type="text"
+
+                               id="work"
+                               className="form-control"
+                               value={this.state.work}
+                               onChange={this.onChangeWork}
+                               placeholder="Work Number"
                         />
                     </div>
                     <div className="form-group">
                         <input type="submit" id="submit" value="Sign up" className="btn btn-primary"/>
                     </div>
-                    {this.state.showError ? 
+                    {this.state.showError ?
                         <div id="error" className="alert alert-danger" role="alert" >
                         The details you entered are invalid, please try again
                     </div>
-                    : 
+                    :
                     <div></div>}
+                    {this.state.showMobileError ?
+                        <div id="error2" className="alert alert-danger" role="alert" >
+                            You must enter at least one phone number
+                        </div>
+                        :
+                        <div></div>}
                 </form>
             </div>
         );

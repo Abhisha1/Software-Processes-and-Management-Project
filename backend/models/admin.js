@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const adminSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -12,19 +12,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    mobile: {
-        type: String
-    },
-    home: {
-        type: String
-    },
-    work: {
-        type: String
     }
-
-
-
 },
 {
     strict:false,
@@ -32,11 +20,11 @@ const userSchema = new Schema({
 });
 
 
-userSchema.pre('save', function(next) {
-    var user = this;
+adminSchema.pre('save', function(next) {
+    var admin = this;
     
     // Only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) {
+    if (!admin.isModified('password')) {
         return next();
     }
     // Generate a salt
@@ -45,19 +33,19 @@ userSchema.pre('save', function(next) {
             return next(err);
         }
         // Hash the password along with our new salt
-        bcrypt.hash(user.password, salt, function(err, hash) {
+        bcrypt.hash(admin.password, salt, function(err, hash) {
             if (err) {
                 return next(err);
             }
             // Override the plaintext password with the hashed one
-            user.password = hash;
+            admin.password = hash;
             next();
         });
     });
 });
 
 
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
+adminSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) {
             return cb(err);
@@ -66,5 +54,5 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
     });
 }
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Admin = mongoose.model('Admin', adminSchema);
+module.exports = Admin;

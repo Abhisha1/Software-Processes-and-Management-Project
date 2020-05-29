@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+let ObjectId = require('mongodb').ObjectID;
 let User = require('../models/user');
 
 router.route('/').get((req, res) => {
@@ -13,11 +14,14 @@ router.route('/add').post((req, res) => {
     const password = req.body.password;
     const newUser = new User({
         email: email,
-        password: password
+        password: password,
+        mobile: req.body.mobile,
+        home:req.body.home,
+        work:req.body.work
     });
     newUser.save()
         .then(() => {
-            res.json('User added!');
+            res.status(200).json({msg: "User added!", id: newUser._id});
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -33,7 +37,7 @@ router.route('/login').post((req, res) => {
                 return;
             }
             if (isMatch) {
-                res.status(200).json({msg: "Login successful"});
+                res.status(200).json({msg: "Login successful", id: user._id});
                 return;
             } else {
                 res.status(400).json({msg: "Signin Failed: Please check your details"});
@@ -44,6 +48,18 @@ router.route('/login').post((req, res) => {
         res.status(400).json({msg: "Signin Failed: Please check your details"});
     });
 });
+
+router.route('/getCurrUser').post((req,res) => {
+    User.findOne({"_id": ObjectId(req.body.id)})
+    .then(user => {
+        console.log(user);
+        res.status(200).json({data: user});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(200).json({msg: "Could not find that user, please try again"})
+    })
+})
 
 
 router.route('/update').post((req, res) => {
@@ -73,16 +89,21 @@ router.route('/update').post((req, res) => {
             }
             if (isMatch) {
                 user.password = password;
+
+                console.log(req.body)
+                if(req.body.mobile !== ''){
+                    user.mobile = req.body.mobile;
+                }
+                if(req.body.home !== ''){
+                    user.mobile = req.body.home;
+                }
+                if(req.body.work !== ''){
+                    user.mobile = req.body.work;
+                }
                 user.save()
                     .then(() => res.json('User updated!'))
                     .catch(err => res.status(400).json('Error: ' + err));
-                // User.findOneAndUpdate({email:email},{password:password}).then(user =>  {
-                //     // Validate the password
-                //     res.status(200).json({msg: "Update successful"});
-                //     return;
-                // }).catch(err => {
-                //     res.status(400).json({msg: "Update Failed: Please check your details"});
-               // });
+
             } else {
                 res.status(400).json({msg: "old password is incorrect: Please check your details"});
                 return;
