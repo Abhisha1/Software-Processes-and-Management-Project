@@ -11,8 +11,8 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 class CreateUser extends Component {
@@ -35,43 +35,20 @@ class CreateUser extends Component {
             password: '',
             showError: false,
             showMobileError: false,
-            mobile : '',
-            home : '',
-            work : '',
-            address : '',
+            mobile: '',
+            home: '',
+            work: '',
+            address: '',
 
         }
     }
-<<<<<<< HEAD
-    /* componentDidMount() {
-         this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-             {"types": ["geocode"]});
-
-         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-     }
-     handlePlaceChanged(){
-         const place = this.autocomplete.getPlace();
-         this.props.onPlaceLoaded(place);
-     }*/
-=======
-   /* componentDidMount() {
-        this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-            {"types": ["geocode"]});
-
-        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-    }
-    handlePlaceChanged(){
-        const place = this.autocomplete.getPlace();
-        this.props.onPlaceLoaded(place);
-    }*/
->>>>>>> master
     /*handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
         this.state.setAddress = value;
         this.state.setCoordinates = latLng;
     };*/
-    onChangeAddress(e){
+    onChangeAddress(e) {
         this.setState({
             address: e.description,
             showError: false
@@ -95,12 +72,12 @@ class CreateUser extends Component {
             mobile: e.target.value,
             showError: false
         });
-    }onChangeHome(e) {
+    } onChangeHome(e) {
         this.setState({
             home: e.target.value,
             showError: false
         });
-    }onChangeWork(e) {
+    } onChangeWork(e) {
         this.setState({
             work: e.target.value,
             showError: false
@@ -147,7 +124,7 @@ class CreateUser extends Component {
         }
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <h3>Create account</h3>
@@ -155,23 +132,23 @@ class CreateUser extends Component {
                     <div className="form-group">
                         <label>Email address</label>
                         <input type="email"
-                               id="email"
-                               required
-                               className="form-control"
-                               value={this.state.email}
-                               onChange={this.onChangeEmail}
-                               placeholder="Email"
+                            id="email"
+                            required
+                            className="form-control"
+                            value={this.state.email}
+                            onChange={this.onChangeEmail}
+                            placeholder="Email"
                         />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
                         <input type="password"
-                               id="password"
-                               required
-                               className="form-control"
-                               value={this.state.password}
-                               onChange={this.onChangePassword}
-                               placeholder="Password"
+                            id="password"
+                            required
+                            className="form-control"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
+                            placeholder="Password"
 
                         />
 
@@ -179,45 +156,41 @@ class CreateUser extends Component {
                     <div className="form-group">
                         <label>Mobile Number</label>
                         <input type="text"
-                               id="mobile"
-                               className="form-control"
-                               value={this.state.mobile}
-                               onChange={this.onChangeMobile}
-                               placeholder="Mobile Number"
+                            id="mobile"
+                            className="form-control"
+                            value={this.state.mobile}
+                            onChange={this.onChangeMobile}
+                            placeholder="Mobile Number"
                         />
                     </div>
                     <div className="form-group">
                         <label>Home number</label>
                         <input type="text"
-                               id="home-number"
-                               className="form-control"
-                               value={this.state.home}
-                               onChange={this.onChangeHome}
-                               placeholder="Home Number"
+                            id="home-number"
+                            className="form-control"
+                            value={this.state.home}
+                            onChange={this.onChangeHome}
+                            placeholder="Home Number"
                         />
                     </div>
                     <div className="form-group">
                         <label>Work Number</label>
                         <input type="text"
 
-                               id="work"
-                               className="form-control"
-                               value={this.state.work}
-                               onChange={this.onChangeWork}
-                               placeholder="Work Number"
+                            id="work"
+                            className="form-control"
+                            value={this.state.work}
+                            onChange={this.onChangeWork}
+                            placeholder="Work Number"
                         />
                     </div>
                     <div>
                         <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
-<<<<<<< HEAD
-                                                  onSelect={this.onChangeAddress}
-=======
                             onSelect={this.onChangeAddress}
->>>>>>> master
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" id="submit" value="Sign up" className="btn btn-primary"/>
+                        <input type="submit" id="submit" value="Sign up" className="btn btn-primary" />
                     </div>
                     {this.state.showError ?
                         <div id="error" className="alert alert-danger" role="alert" >
@@ -232,38 +205,6 @@ class CreateUser extends Component {
                         :
                         <div></div>}
                 </form>
-                {/*<div>
-                    <PlacesAutocomplete
-                        value={this.state.address}
-                        onChange={this.onChangeAddress}
-                        onSelect={this.handleSelect}
-                    >
-                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                            <div>
-                                <p>Latitude: {this.state.coordinates.lat}</p>
-                                <p>Longitude: {this.state.coordinates.lng}</p>
-
-                                <input {...getInputProps({ placeholder: "Type address" })} />
-
-                                <div>
-                                    {loading ? <div>...loading</div> : null}
-
-                                    {suggestions.map(suggestion => {
-                                        const style = {
-                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
-                                        };
-
-                                        return (
-                                            <div {...getSuggestionItemProps(suggestion, { style })}>
-                                                {suggestion.description}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </PlacesAutocomplete>
-                </div>*/}
             </div>
         );
     }
