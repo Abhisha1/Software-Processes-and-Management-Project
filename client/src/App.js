@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/NavBar";
 import PrivateRoute from "./components/protectedRoutes";
-import CreateUser from "./components/createUser";
-import Order from "./components/order";
+import CreateUser from "./components/Create User";
+import Order from "./components/Order";
 import Login from "./components/Login";
 import Home from "./components/home";
 import EditUser from "./components/edit-user";

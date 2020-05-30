@@ -1,48 +1,45 @@
 
 
+.homeContainer{
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 0.4em;
+    border: rgba(255, 255, 255, 0.815);
+    height: 40em;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
 
 .pic {
     background-image: url("../assets/homepage.jpg");
-    height: 550px;
-    opacity: 80%;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-    border: 3px solid #777;
-    position: relative;
+    height: 30em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    
 }
 
-.headings{
-    opacity: 100%;
-}
+.headings{}
 
 #firstHeading{
-    position: absolute;
     color: black;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    opacity: 100% !important;
-
-
 }
 
 #secondHeading {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: black;
-    opacity: 100% !important;
-
-
 }
 
 #viewOrderButton{
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
+    background: rgb(39, 39, 46);
+    border: rgb(39, 39, 46);
+} 
 
-}
+#viewOrderButton:hover, #viewOrderButton:active{
+    color: rgb(39, 39, 46);
+    border: rgb(39, 39, 46) !important;
+    background:white;
+} 

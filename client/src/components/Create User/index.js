@@ -5,8 +5,7 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
 } from "react-places-autocomplete";
-//
-// import "https://maps.googleapis.com/maps/api/js?key=AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA&libraries=places&callback=initMap";
+import "./register.scss";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 function setCookie(cname, cvalue, exdays) {
@@ -126,8 +125,9 @@ class CreateUser extends Component {
 
     render() {
         return (
-            <div>
+            <div id="createUser">
                 <h3>Create account</h3>
+                <p>Find a new way to shop for high quality produce. Create an account easily with your email, one phone number and a password</p>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
@@ -184,7 +184,8 @@ class CreateUser extends Component {
                             placeholder="Work Number"
                         />
                     </div>
-                    <div>
+                    <div className="form-group">
+                        <label>Address</label>
                         <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
                             onSelect={this.onChangeAddress}
                         />

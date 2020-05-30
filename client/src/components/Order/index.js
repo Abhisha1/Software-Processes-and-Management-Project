@@ -3,11 +3,11 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import ProductForm from './productForm';
-import Cart from './cart';
-import Booking from './booking';
+import ProductForm from '../productForm';
+import Cart from '../cart';
+import Booking from '../booking';
 import setHours from "date-fns/setHours";
-
+import "./order.scss";
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -184,7 +184,9 @@ class Order extends Component {
 
     render() { 
         return ( 
-            <Container>
+            <div>
+                <h1> Create an order </h1>
+                <Container id="orderContainer">
                 <Row>
                     <Col>
                         <ProductForm onSubmit={this.handleAddToCart} />
@@ -203,6 +205,8 @@ class Order extends Component {
                     </Col>
                 </Row>
             </Container>
+            </div>
+            
         );
     }
 }

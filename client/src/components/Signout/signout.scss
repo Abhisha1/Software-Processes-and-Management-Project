@@ -1,6 +1,6 @@
 #signout{
     color: rgb(39, 39, 46);
-    font-weight: 600;
+    font-weight: 600 !important;
     background-color: white;
     border-color: rgb(39, 39, 46);
     text-transform: uppercase;
@@ -8,7 +8,7 @@
 }
 #signout:active, #signout:hover{
     color: white;
-    font-weight: 600;
+    font-weight: 600 !important;
     background-color: rgb(39, 39, 46);
     border-color: rgb(39, 39, 46);
     text-transform: uppercase;
