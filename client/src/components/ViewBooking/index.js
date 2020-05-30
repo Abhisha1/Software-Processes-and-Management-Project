@@ -117,7 +117,10 @@ function ViewBookings(props) {
             toast("Your order has been successfully removed");
             setIsLoading(true);
             if (isModify){
-                props.history.push("/order");
+                setTimeout(function () {
+                    props.history.push("/order");
+                }, 5000);
+
             }
             else{
                 let newBookings = []

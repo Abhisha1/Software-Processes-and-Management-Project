@@ -7,6 +7,8 @@ import ProductForm from '../productForm';
 import Cart from '../cart';
 import Booking from '../booking';
 import setHours from "date-fns/setHours";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./order.scss";
 
 function getCookie(name) {
@@ -87,7 +89,10 @@ class Order extends Component {
         axios.post('https://jjfresh.herokuapp.com/orders/add', order)
             .then(res => {
                 console.log(res.data);
-                //this.props.history.push("/home");
+                toast("Your order has been successfully placed");
+                setTimeout(function () {
+                   window.location.href = "/home";
+                }, 5000);
             })
             .catch(err => {
                 console.log(err);
@@ -185,6 +190,7 @@ class Order extends Component {
     render() { 
         return ( 
             <div>
+                 <ToastContainer />
                 <h3> Create an order </h3>
                 <Container id="orderContainer">
                 <Row>
