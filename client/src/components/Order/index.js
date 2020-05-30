@@ -185,7 +185,7 @@ class Order extends Component {
     render() { 
         return ( 
             <div>
-                <h1> Create an order </h1>
+                <h3> Create an order </h3>
                 <Container id="orderContainer">
                 <Row>
                     <Col>
