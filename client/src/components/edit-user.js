@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
-
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +13,7 @@ class EditUser extends Component {
         this.onChangeOldPassword = this.onChangeOldPassword.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeAddress = this.onChangeAddress.bind(this);
 
         this.state = {
             email: '',
@@ -22,8 +23,16 @@ class EditUser extends Component {
             showMobileError: false,
             mobile : '',
             home : '',
-            work : ''
+            work : '',
+            address : ''
         }
+    }
+
+    onChangeAddress(e){
+        this.setState({
+            address: e.description,
+            showError: false
+        });
     }
 
     onChangeEmail(e) {
@@ -70,7 +79,8 @@ class EditUser extends Component {
             password: this.state.password,
             mobile: this.state.mobile,
             home: this.state.home,
-            work: this.state.work
+            work: this.state.work,
+            address: this.state.address
         };
 
         if(this.state.mobile === '' && this.state.home === '' && this.state.work === ''){
@@ -159,6 +169,11 @@ class EditUser extends Component {
                                    value={this.state.work}
                                    onChange={this.onChangeWork}
                                    placeholder="Work Number"
+                            />
+                        </div>
+                        <div>
+                            <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
+                                                      onSelect={this.onChangeAddress}
                             />
                         </div>
                     </div>
