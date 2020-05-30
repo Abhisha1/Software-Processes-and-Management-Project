@@ -42,6 +42,7 @@ class CreateUser extends Component {
 
         }
     }
+<<<<<<< HEAD
     /* componentDidMount() {
          this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
              {"types": ["geocode"]});
@@ -52,6 +53,18 @@ class CreateUser extends Component {
          const place = this.autocomplete.getPlace();
          this.props.onPlaceLoaded(place);
      }*/
+=======
+   /* componentDidMount() {
+        this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
+            {"types": ["geocode"]});
+
+        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
+    }
+    handlePlaceChanged(){
+        const place = this.autocomplete.getPlace();
+        this.props.onPlaceLoaded(place);
+    }*/
+>>>>>>> master
     /*handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
@@ -196,7 +209,11 @@ class CreateUser extends Component {
                     </div>
                     <div>
                         <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
+<<<<<<< HEAD
                                                   onSelect={this.onChangeAddress}
+=======
+                            onSelect={this.onChangeAddress}
+>>>>>>> master
                         />
                     </div>
                     <div className="form-group">
