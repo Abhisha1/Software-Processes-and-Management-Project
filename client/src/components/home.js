@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Homepage from './../public/Homepage.JPG';
-import styles from "./styles.css";
+import styles from "./Stylesheet.css";
 
 export default class Home extends Component {
 
