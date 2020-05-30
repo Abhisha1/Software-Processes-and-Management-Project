@@ -24,7 +24,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-
+    opacity: 100% !important;
 
 
 }
@@ -35,6 +35,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: black;
+    opacity: 100% !important;
 
 
 }
