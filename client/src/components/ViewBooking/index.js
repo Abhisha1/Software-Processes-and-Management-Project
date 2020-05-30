@@ -94,13 +94,13 @@ function ViewBookings(props) {
             orderDetails += "Small: " + produce.Small;
         }
         if (produce.Medium > 0) {
-            if (orderDetails != "") {
+            if (orderDetails !== "") {
                 orderDetails += " "
             }
             orderDetails += "Medium: " + produce.Medium;
         }
         if (produce.Large > 0) {
-            if (orderDetails != "") {
+            if (orderDetails !== "") {
                 orderDetails += " "
             }
             orderDetails += "Large: " + produce.Large;

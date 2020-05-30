@@ -2,7 +2,7 @@
 
 
 .pic {
-    background-image: url("FINAL HOME PAGE.JPG");
+    background-image: url("../assets/homepage.jpg");
     height: 550px;
     opacity: 80%;
     background-position: center; /* Center the image */
