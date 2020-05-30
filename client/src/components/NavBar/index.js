@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SignOut from './signout';
+import SignOut from '../Signout';
+import './navbar.scss';
 
-const AuthNav = <ul className="navbar-nav mr-auto">
+const AuthNav = 
+<ul className="navbar-nav nav-fill w-100">
+<ul className="navbar-nav nav-fill w-50">
     <li className="navbar-item">
-        <Link id="linkToHome" to="/home" className="nav-link">Home</Link>
+        <Link id="linkToHome" to="/home" className="btn btn-outline-primary my-2 my-sm-0">Home</Link>
     </li>
     <li className="navbar-item">
-        <Link to="/edit" className="nav-link">Edit User</Link>
+        <Link to="/edit" className="btn btn-outline-primary my-2 my-sm-0">Edit User</Link>
     </li>
     <li className="navbar-item">
-        <Link id="linkToOrder" to="/order" className="nav-link">Order</Link>
+        <Link id="linkToOrder" to="/order" className="btn btn-outline-primary my-2 my-sm-0">Order</Link>
     </li>
+    </ul>
     <SignOut></SignOut>
 </ul>
 
@@ -21,10 +25,10 @@ const AdminNav = <ul className="navbar-nav mr-auto">
 
 const UnAuthNavBar = <ul className="navbar-nav mr-auto">
     <li className="navbar-item">
-        <Link to="/user" className="nav-link">Create User</Link>
+    <Link to="/user" className="btn btn-outline-primary my-2 my-sm-0">Create User</Link>
     </li>
     <li className="navbar-item">
-        <Link to="/login" className="nav-link">Log In</Link>
+    <Link to="/login" className="btn btn-outline-primary my-2 my-sm-0">Log In</Link>
     </li>
 
 </ul>
@@ -64,7 +68,7 @@ function Navbar() {
     }, [])
 
     return (
-        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/" className="navbar-brand">JJFresh</Link>
             <div className="collapse navbar-collapse">
                 {isLoading ? null :
