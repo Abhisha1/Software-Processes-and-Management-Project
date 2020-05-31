@@ -12,25 +12,42 @@ class ProductForm extends Component {
         this.handleSizeChange = this.handleSizeChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
+        this.handlePrice = this.handlePrice.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             size: 'Small',
             type: 'Fruit',
-            quantity: 1
+            quantity: 15,
+            currPrice: 20
+        }
+    }
+    handlePrice = (size, type) => {
+        let prices = { "Fruit": 20, "Vegetable": 15, "Mixed": 18 }
+        if (size === 'Medium') {
+            return 2 * prices[type];
+        }
+        else if (size === 'Large') {
+            return 3 * prices[type];
+        }
+        else {
+            return prices[type];
         }
     }
 
     handleSizeChange(size) {
         this.setState({
-            size: size
+            size: size,
+            currPrice: this.handlePrice(size,this.state.type)
         });
     }
 
     handleTypeChange(type) {
         this.setState({
-            type: type
+            type: type,
+            currPrice: this.handlePrice(this.state.size, type)
         });
     }
+
 
     handleQuantityChange(delta) {
         // Ensure quantity does not reach extreme values
@@ -63,20 +80,22 @@ class ProductForm extends Component {
         this.props.onSubmit(item);
     }
 
-    render() { 
+    render() {
         return (
             <div>
-                <Size onSizeChange={this.handleSizeChange}/>
+                <Size onSizeChange={this.handleSizeChange} />
                 <br />
                 <SizeInfo size={this.state.size} />
-                <Type onTypeChange={this.handleTypeChange}/>
+                <Type onTypeChange={this.handleTypeChange} />
                 <br />
-                <Quantity onQuantityChange={this.handleQuantityChange} 
-                          quantity={this.state.quantity}/>
+                <Quantity onQuantityChange={this.handleQuantityChange}
+                    quantity={this.state.quantity} />
                 <br />
+                <h4>Price</h4>
+                <p>${this.state.currPrice}</p>
                 <Button id="addToCartButton" type="submit"
-                        onClick={this.handleSubmit}>
-                            ADD TO CART
+                    onClick={this.handleSubmit}>
+                    ADD TO CART
                 </Button>
             </div>
         );
