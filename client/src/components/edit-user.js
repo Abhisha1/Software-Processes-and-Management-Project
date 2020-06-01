@@ -140,42 +140,43 @@ class EditUser extends Component {
                                onChange={this.onChangePassword}
                                placeholder="New Password"
                         />
-                        <div className="form-group">
-                            <label>New Mobile Number</label>
-                            <input type="text"
-                                   id="mobile"
-                                   className="form-control"
-                                   value={this.state.mobile}
-                                   onChange={this.onChangeMobile}
-                                   placeholder="Mobile Number"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>New Home number</label>
-                            <input type="text"
-                                   id="home-number"
-                                   className="form-control"
-                                   value={this.state.home}
-                                   onChange={this.onChangeHome}
-                                   placeholder="Home Number"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>New Work Number</label>
-                            <input type="text"
+                    </div>
+                    <div className="form-group">
+                        <label>New Mobile Number</label>
+                        <input type="text"
+                                id="mobile"
+                                className="form-control"
+                                value={this.state.mobile}
+                                onChange={this.onChangeMobile}
+                                placeholder="Mobile Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>New Home Number</label>
+                        <input type="text"
+                                id="home-number"
+                                className="form-control"
+                                value={this.state.home}
+                                onChange={this.onChangeHome}
+                                placeholder="Home Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>New Work Number</label>
+                        <input type="text"
 
-                                   id="work"
-                                   className="form-control"
-                                   value={this.state.work}
-                                   onChange={this.onChangeWork}
-                                   placeholder="Work Number"
-                            />
-                        </div>
-                        <div>
-                            <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
-                                                      onSelect={this.onChangeAddress}
-                            />
-                        </div>
+                                id="work"
+                                className="form-control"
+                                value={this.state.work}
+                                onChange={this.onChangeWork}
+                                placeholder="Work Number"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>New Address</label>
+                        <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
+                                                    onSelect={this.onChangeAddress}
+                        />
                     </div>
                     <div className="form-group">
                         <input type ="submit" value="Update" id="submit" className="btn btn-primary"/>
