@@ -89,7 +89,7 @@ class Order extends Component {
         axios.post('https://jjfresh.herokuapp.com/orders/add', order)
             .then(res => {
                 console.log(res.data);
-                toast("Your order has been successfully placed");
+                toast.success("Your order has been placed successfully. You will shortly receive an email confirming your order details.");
                 setTimeout(function () {
                    window.location.href = "/home";
                 }, 5000);
