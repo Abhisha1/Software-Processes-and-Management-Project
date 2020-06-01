@@ -12,12 +12,15 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const email = req.body.email;
     const password = req.body.password;
+
     const newUser = new User({
+        name: req.body.name,
         email: email,
         password: password,
         mobile: req.body.mobile,
         home:req.body.home,
-        work:req.body.work
+        work:req.body.work,
+        address: req.body.address
     });
     newUser.save()
         .then(() => {
@@ -51,14 +54,14 @@ router.route('/login').post((req, res) => {
 
 router.route('/getCurrUser').post((req,res) => {
     User.findOne({"_id": ObjectId(req.body.id)})
-    .then(user => {
-        console.log(user);
-        res.status(200).json({data: user});
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(200).json({msg: "Could not find that user, please try again"})
-    })
+        .then(user => {
+            console.log(user);
+            res.status(200).json({data: user});
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(200).json({msg: "Could not find that user, please try again"})
+        })
 })
 
 

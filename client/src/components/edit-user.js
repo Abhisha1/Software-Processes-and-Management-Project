@@ -2,20 +2,24 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
 class EditUser extends Component {
     constructor(props) {
         super(props);
 
+        this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeMobile = this.onChangeMobile.bind(this);
         this.onChangeHome = this.onChangeHome.bind(this);
         this.onChangeWork = this.onChangeWork.bind(this);
         this.onChangeOldPassword = this.onChangeOldPassword.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
 
         this.state = {
+            name: '',
             email: '',
             oldPassword: '',
             password: '',
@@ -26,6 +30,12 @@ class EditUser extends Component {
             work : '',
             address : ''
         }
+    }
+    onChangeName(e) {
+        this.setState({
+            name: e.target.value,
+            showError: false
+        });
     }
 
     onChangeAddress(e){
@@ -74,6 +84,7 @@ class EditUser extends Component {
     onSubmit(e) {
         e.preventDefault();
         const user = {
+            name: this.state.name,
             email: this.state.email,
             oldPassword: this.state.oldPassword,
             password: this.state.password,
@@ -109,15 +120,16 @@ class EditUser extends Component {
                 <h3>Edit account</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Email address</label>
+                        <label>New Name</label>
                         <input type="text"
                                required
                                className="form-control"
-                               value={this.state.email}
-                               id="email"
-                               onChange={this.onChangeEmail}
-                               placeholder="Email"
+                               value={this.state.name}
+                               id="name"
+                               onChange={this.onChangeName}
+                               placeholder="Full name"
                         />
+
                     </div>
                     <div className="form-group">
                         <label>Current Password</label>
@@ -185,13 +197,13 @@ class EditUser extends Component {
                             The details you entered are invalid, please try again
                         </div>
                         :
-                        <div></div>}
+                        <div> </div>}
                     {this.state.showMobileError ?
                         <div id="error2" className="alert alert-danger" role="alert" >
                             You must enter at least one phone number
                         </div>
                         :
-                        <div></div>}
+                        <div> </div>}
                 </form>
 
 

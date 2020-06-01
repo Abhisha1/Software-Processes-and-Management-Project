@@ -1,40 +1,48 @@
 // Schema for user
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
+
 const userSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        index: { unique: true },
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    mobile: {
-        type: String
-    },
-    home: {
-        type: String
-    },
-    work: {
-        type: String
-    }
+        name:{
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            index: { unique: true },
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        mobile: {
+            type: String
+        },
+        home: {
+            type: String
+        },
+        work: {
+            type: String
+        },
+        address: {
+            type: String
+        }
 
 
-
-},
-{
-    strict:false,
-    timestamps: true,
-});
+    },
+    {
+        strict:false,
+        timestamps: true,
+    });
 
 
 userSchema.pre('save', function(next) {
     var user = this;
-    
+
     // Only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) {
         return next();
