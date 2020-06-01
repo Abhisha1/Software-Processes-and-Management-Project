@@ -10,7 +10,7 @@ const AuthNav =
         <Link id="linkToHome" to="/home" className="btn btn-outline-primary my-2 my-sm-0">Home</Link>
     </li>
     <li className="navbar-item">
-        <Link to="/edit" className="btn btn-outline-primary my-2 my-sm-0">Edit User</Link>
+        <Link to="/edit" className="btn btn-outline-primary my-2 my-sm-0">Edit Account</Link>
     </li>
     <li className="navbar-item">
         <Link id="linkToOrder" to="/order" className="btn btn-outline-primary my-2 my-sm-0">Order</Link>
@@ -25,7 +25,7 @@ const AdminNav = <ul className="navbar-nav mr-auto">
 
 const UnAuthNavBar = <ul className="navbar-nav mr-auto">
     <li className="navbar-item">
-    <Link to="/user" className="btn btn-outline-primary my-2 my-sm-0">Create User</Link>
+    <Link to="/user" className="btn btn-outline-primary my-2 my-sm-0">Create Account</Link>
     </li>
     <li className="navbar-item">
     <Link to="/login" className="btn btn-outline-primary my-2 my-sm-0">Log In</Link>
