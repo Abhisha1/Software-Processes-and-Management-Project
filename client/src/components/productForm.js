@@ -17,7 +17,7 @@ class ProductForm extends Component {
         this.state = {
             size: 'Small',
             type: 'Fruit',
-            quantity: 15,
+            quantity: 1,
             currPrice: 20
         }
     }
@@ -37,7 +37,7 @@ class ProductForm extends Component {
     handleSizeChange(size) {
         this.setState({
             size: size,
-            currPrice: this.handlePrice(size,this.state.type)
+            currPrice: this.handlePrice(size, this.state.type)
         });
     }
 
@@ -91,7 +91,7 @@ class ProductForm extends Component {
                 <Quantity onQuantityChange={this.handleQuantityChange}
                     quantity={this.state.quantity} />
                 <br />
-                <h4>Price</h4>
+                <h4>Single Box Price</h4>
                 <p>${this.state.currPrice}</p>
                 <Button id="addToCartButton" type="submit"
                     onClick={this.handleSubmit}>

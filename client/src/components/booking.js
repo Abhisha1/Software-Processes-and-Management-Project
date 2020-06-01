@@ -139,7 +139,7 @@ class Booking extends Component {
                 <br />
                 <div className="text-right">
                     <Button id="submitOrder" type="submit"
-                            disabled={(!this.state.dateSelected) || (!this.state.timeSelected)}
+                            disabled={(!this.state.dateSelected) || (!this.state.timeSelected) || (this.state.orderSubmitted)}
                             onClick={this.handleSubmit}>
                                 SUBMIT ORDER
                     </Button>
@@ -147,11 +147,12 @@ class Booking extends Component {
                 <br />
                 <div>
                     {this.state.orderSubmitted ? 
-                        <Alert variant="success">
+                        /*<Alert variant="success">
                             Your order has been successfully submitted!
                             You will shortly receive an email confirming
                             your order details.
-                        </Alert>
+                        </Alert>*/
+                        null
                         : null}
                 </div>
             </div>
