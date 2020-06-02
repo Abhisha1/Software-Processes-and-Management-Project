@@ -210,7 +210,7 @@ class EditUser extends Component {
                     </div>
                     {this.state.showError ?
                         <div id="error" className="alert alert-danger" role="alert" >
-                            The details you entered are invalid, please try again
+                            The password you entered is invalid, please try editing with the correct password
                         </div>
                         :
                         <div> </div>}
