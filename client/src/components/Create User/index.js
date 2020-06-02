@@ -18,9 +18,6 @@ class CreateUser extends Component {
 
     constructor(props) {
         super(props);
-        // this.autocompleteInput = React.createRef();
-        // this.autocomplete = null;
-        // this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeMobile = this.onChangeMobile.bind(this);
@@ -42,23 +39,6 @@ class CreateUser extends Component {
             address : '',
         }
     }
-    /* componentDidMount() {
-         this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-             {"types": ["geocode"]});
-
-         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-     }
-     handlePlaceChanged(){
-         const place = this.autocomplete.getPlace();
-         this.props.onPlaceLoaded(place);
-     }*/
-    /*handleSelect = async value => {
-        const results = await geocodeByAddress(value);
-        const latLng = await getLatLng(results[0]);
-        this.state.setAddress = value;
-        this.state.setCoordinates = latLng;
-    };*/
-
     onChangeName(e) {
         this.setState({
             name: e.target.value,
@@ -218,7 +198,7 @@ class CreateUser extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Address</label>
+                        <label>Address*</label>
 
                         <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
 
@@ -245,38 +225,6 @@ class CreateUser extends Component {
 
 
                 </form>
-                {/*<div>
-                    <PlacesAutocomplete
-                        value={this.state.address}
-                        onChange={this.onChangeAddress}
-                        onSelect={this.handleSelect}
-                    >
-                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                            <div>
-                                <p>Latitude: {this.state.coordinates.lat}</p>
-                                <p>Longitude: {this.state.coordinates.lng}</p>
-
-                                <input {...getInputProps({ placeholder: "Type address" })} />
-
-                                <div>
-                                    {loading ? <div>...loading</div> : null}
-
-                                    {suggestions.map(suggestion => {
-                                        const style = {
-                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
-                                        };
-
-                                        return (
-                                            <div {...getSuggestionItemProps(suggestion, { style })}>
-                                                {suggestion.description}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </PlacesAutocomplete>
-                </div>*/}
             </div>
         );
     }
