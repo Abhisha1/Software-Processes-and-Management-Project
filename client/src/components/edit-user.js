@@ -127,7 +127,7 @@ class EditUser extends Component {
             // Send HTTP POST request to backend endpoint
             axios.post('https://jjfresh.herokuapp.com/users/update', user)
                 .then(res => {
-                    //  console.log(res.data);
+                     console.log(res.data);
                     this.props.history.push("/home");
                 })
                 .catch(err => {
@@ -171,7 +171,6 @@ class EditUser extends Component {
                     <div className="form-group">
                         <label>New Password</label>
                         <input type="password"
-                               required
                                id="password"
                                className="form-control"
                                value={this.state.password}
