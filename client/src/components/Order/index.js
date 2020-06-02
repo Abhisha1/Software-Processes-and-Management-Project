@@ -39,9 +39,12 @@ class Order extends Component {
                 .then(res => {
                     console.log(res);
                     const email = res.data.data.email;
-                    console.log("Email retrieved: " + email);
+                    const name = res.data.data.name;
+                    const address = res.data.data.address;
                     this.setState({
-                        email: email
+                        email: email,
+                        name: name,
+                        address: address
                     });
                 })
                 .catch(err => console.log(err));
@@ -176,6 +179,8 @@ class Order extends Component {
         // Return an 'order' object that can be stored in the database
         const order = {
             email: this.state.email,
+            name: this.state.name,
+            address: this.state.address,
             date: this.state.date,
             total: this.state.total,
             items: {

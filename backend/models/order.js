@@ -7,6 +7,8 @@ require('dotenv').config();
 
 
 const orderSchema = new Schema({
+    name: { type: String, required: true },
+    address: { type: String, required: true },
     email: { type: String, required: true },
     date: { type: Date, required: true },
     total: { type: Number, required: true },
