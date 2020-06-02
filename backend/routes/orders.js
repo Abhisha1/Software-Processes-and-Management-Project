@@ -12,10 +12,14 @@ router.route('/add').post((req, res) => {
     const email = req.body.email;
     const total = req.body.total;
     const items = req.body.items;
+    const name = req.body.name;
+    const address = req.body.address;
     const date = new Date(req.body.date);
 
     const order = new Order({
         email: email,
+        name: name,
+        address: address,
         date: date,
         total: total,
         items: items
@@ -23,7 +27,7 @@ router.route('/add').post((req, res) => {
 
     order.save()
     .then(() => {
-        res.json('Order added!')
+        res.status(200).json('Order added!')
     })
     .catch(err => {
         res.status(400).json(`Error: ${err}`)
