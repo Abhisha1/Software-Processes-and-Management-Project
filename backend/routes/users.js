@@ -88,10 +88,10 @@ router.route('/update').post((req, res) => {
                     user.mobile = req.body.mobile;
                 }
                 if(req.body.home !== ''){
-                    user.mobile = req.body.home;
+                    user.home = req.body.home;
                 }
                 if(req.body.work !== ''){
-                    user.mobile = req.body.work;
+                    user.work = req.body.work;
                 }
                 user.save()
                     .then(() => res.json('User updated!'))
