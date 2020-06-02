@@ -169,16 +169,6 @@ class EditUser extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>New Password</label>
-                        <input type="password"
-                               id="password"
-                               className="form-control"
-                               value={this.state.password}
-                               onChange={this.onChangePassword}
-                               placeholder="New Password"
-                        />
-                    </div>
-                    <div className="form-group">
                         <label>New Mobile Number</label>
                         <input type="text"
                                 id="mobile"
