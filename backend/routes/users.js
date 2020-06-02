@@ -71,7 +71,8 @@ router.route('/getCurrUser').post((req,res) => {
 router.route('/update').post((req, res) => {
     const email = req.body.email;
     const oldPassword = req.body.oldPassword;
-    const password = req.body.password;
+    const address = req.body.address;
+
     User.findOne({ email: email }).then(user =>  {
         // Validate the password
         user.comparePassword(oldPassword, function(err, isMatch) {
@@ -81,17 +82,16 @@ router.route('/update').post((req, res) => {
                 return;
             }
             if (isMatch) {
-                user.password = password;
-
                 console.log(req.body)
+                user.address = address;
                 if(req.body.mobile !== ''){
                     user.mobile = req.body.mobile;
                 }
                 if(req.body.home !== ''){
-                    user.mobile = req.body.home;
+                    user.home = req.body.home;
                 }
                 if(req.body.work !== ''){
-                    user.mobile = req.body.work;
+                    user.work = req.body.work;
                 }
                 user.save()
                     .then(() => res.json('User updated!'))
