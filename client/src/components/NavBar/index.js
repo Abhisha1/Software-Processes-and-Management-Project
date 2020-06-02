@@ -69,7 +69,7 @@ function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="navbar-brand">JJFresh</Link>
+            <a href="/home" className="navbar-brand" onClick={() => window.location.reload()}>JJFresh</a>
             <div className="collapse navbar-collapse">
                 {isLoading ? null :
                     isAuth ? (isAuth === "Authorised" ? AuthNav : AdminNav ) : UnAuthNavBar}

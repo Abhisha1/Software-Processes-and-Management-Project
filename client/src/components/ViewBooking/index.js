@@ -143,8 +143,8 @@ function ViewBookings(props) {
         <div>
             <ToastContainer />
             {isLoading ?
-                <div class="spinner-border text-dark" role="status">
-                <span class="sr-only">Loading...</span>
+                <div className="spinner-border text-dark" role="status">
+                <span className="sr-only">Loading...</span>
               </div>
                 : (data.bookings.length ?
                     <div id="orderCards">
