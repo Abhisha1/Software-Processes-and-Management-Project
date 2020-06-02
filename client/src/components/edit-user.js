@@ -3,6 +3,13 @@ import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    console.log(value);
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -80,7 +87,24 @@ class EditUser extends Component {
             showError: false
         });
     }
-
+    componentDidMount() {
+        axios.post('https://jjfresh.herokuapp.com/users/getCurrUser', { id: getCookie("uId") })
+                .then(res => {
+                    console.log(res);
+                    const email = res.data.data.email;
+                    const name = res.data.data.name;
+                    const address = res.data.data.address;
+                    this.setState({
+                        email: email,
+                        name: name,
+                        address: address,
+                        mobile: res.data.data.mobile,
+                        work: res.data.data.work,
+                        mobile: res.data.data.mobile,
+                    });
+                })
+                .catch(err => console.log(err));
+    }
     onSubmit(e) {
         e.preventDefault();
         const user = {
@@ -114,6 +138,8 @@ class EditUser extends Component {
                 });
         }
     }
+
+
     render(){
         return(
             <div>
@@ -131,7 +157,7 @@ class EditUser extends Component {
                         />
 
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Current Password</label>
                         <input type="password"
                                required
@@ -141,7 +167,7 @@ class EditUser extends Component {
                                onChange={this.onChangeOldPassword}
                                placeholder="Current Password"
                         />
-                    </div>
+                    </div> */}
                     <div className="form-group">
                         <label>New Password</label>
                         <input type="password"
@@ -186,7 +212,7 @@ class EditUser extends Component {
                     </div>
                     <div className="form-group">
                         <label>New Address</label>
-                        <GooglePlacesAutocomplete apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
+                        <GooglePlacesAutocomplete initialValue={this.state.address} apiKey='AIzaSyAhgPS9xVvesdLc8ETGdv8u31VpKZZDCmA'
                                                     onSelect={this.onChangeAddress}
                         />
                     </div>

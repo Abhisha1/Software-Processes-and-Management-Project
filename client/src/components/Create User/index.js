@@ -82,16 +82,19 @@ class CreateUser extends Component {
     onChangeMobile(e) {
         this.setState({
             mobile: e.target.value,
+            showError: false,
             showError: false
         });
     }onChangeHome(e) {
         this.setState({
             home: e.target.value,
+            showMobileError: false,
             showError: false
         });
     }onChangeWork(e) {
         this.setState({
             work: e.target.value,
+            showMobileError: false,
             showError: false
         });
     }
@@ -136,11 +139,6 @@ class CreateUser extends Component {
                         showError: true
                     })
                 });
-
-            this.setState({
-                email: '',
-                password: ''
-            });
         }
     }
 
@@ -152,7 +150,7 @@ class CreateUser extends Component {
                 <form onSubmit={this.onSubmit}>
 
                     <div className="form-group">
-                        <label>Name</label>
+                        <label>Name*</label>
                         <input type="text"
                                id="name"
                                required
@@ -164,7 +162,7 @@ class CreateUser extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Email address</label>
+                        <label>Email address*</label>
                         <input type="email"
                                id="email"
                                required
@@ -176,7 +174,7 @@ class CreateUser extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>Password*</label>
                         <input type="password"
                                id="password"
                                required
@@ -186,7 +184,6 @@ class CreateUser extends Component {
                                placeholder="Password"
                         />
                     </div>
-
                     <div className="form-group">
                         <label>Mobile Number</label>
                         <input type="text"

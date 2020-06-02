@@ -26,7 +26,10 @@ router.route('/add').post((req, res) => {
         .then(() => {
             res.status(200).json({msg: "User added!", id: newUser._id});
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => {
+            console.log(err);
+            res.status(400).json('Error: ' + err);
+        });
 });
 
 router.route('/login').post((req, res) => {
