@@ -155,7 +155,7 @@ function ViewBookings(props) {
                                     <h5 className="card-title">Order #{item._id}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Name: {item.name}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Delivery date: {new Date(item.date).toDateString()}</h6>
-                                    <h6 className="card-subtitle mb-2 text-muted">Delivery date: {new Date(item.date).toDateString()}</h6>
+                                    <h6 className="card-subtitle mb-2 text-muted">Delivery time: {new Date(item.date).toLocaleTimeString()}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">Address: {item.address}</h6>
                                     <br />
                                     <h6 className="card-subtitle mb-2 text-muted">Order: </h6>
