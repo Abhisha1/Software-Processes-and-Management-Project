@@ -23,6 +23,7 @@ function App() {
         <PrivateRoute path="/home" component={Home} exact={true} />
         <PrivateRoute path="/edit" component={EditUser} exact={true} />
         <PrivateRoute path="/viewBookings" component={ViewBookings} exact={true} />
+        <PrivateRoute path="/" component={Home} exact={true} />
        </div>
     </Router>
   );
