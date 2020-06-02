@@ -100,7 +100,7 @@ class EditUser extends Component {
                         address: address,
                         mobile: res.data.data.mobile,
                         work: res.data.data.work,
-                        mobile: res.data.data.mobile,
+                        home: res.data.data.home,
                     });
                 })
                 .catch(err => console.log(err));
