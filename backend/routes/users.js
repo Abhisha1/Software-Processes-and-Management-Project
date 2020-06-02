@@ -69,28 +69,15 @@ router.route('/getCurrUser').post((req,res) => {
 
 
 router.route('/update').post((req, res) => {
-    //const oldEmail = req.body.oldEmail;
     const email = req.body.email;
     const oldPassword = req.body.oldPassword;
     const password = req.body.password;
-    // bcrypt.genSalt(10, function(err, salt) {
-    //     if (err) {
-    //         return next(err);
-    //     }
-    //     // Hash the password along with our new salt
-    //     bcrypt.hash(password, salt, function(err, hash) {
-    //         if (err) {
-    //             return next(err);
-    //         }
-    //         // Override the plaintext password with the hashed one
-    //         password = hash;
-    //     });
-    // });
     User.findOne({ email: email }).then(user =>  {
         // Validate the password
         user.comparePassword(oldPassword, function(err, isMatch) {
             if (err) {
                 res.status(400).json({msg: "Signin Failed: Please check your details"});
+                console.log(err);
                 return;
             }
             if (isMatch) {
@@ -108,7 +95,10 @@ router.route('/update').post((req, res) => {
                 }
                 user.save()
                     .then(() => res.json('User updated!'))
-                    .catch(err => res.status(400).json('Error: ' + err));
+                    .catch(err => {
+                        res.status(400).json('Error: ' + err)
+                        console.log(err);
+                    });
 
             } else {
                 res.status(400).json({msg: "old password is incorrect: Please check your details"});

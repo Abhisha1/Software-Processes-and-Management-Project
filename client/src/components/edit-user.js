@@ -157,7 +157,7 @@ class EditUser extends Component {
                         />
 
                     </div>
-                    {/* <div className="form-group">
+                    <div className="form-group">
                         <label>Current Password</label>
                         <input type="password"
                                required
@@ -167,7 +167,7 @@ class EditUser extends Component {
                                onChange={this.onChangeOldPassword}
                                placeholder="Current Password"
                         />
-                    </div> */}
+                    </div>
                     <div className="form-group">
                         <label>New Password</label>
                         <input type="password"
